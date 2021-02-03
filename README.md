@@ -8,9 +8,9 @@ The reports (documentation) are stored in separate repositories that are linked 
 
 [Project Outline](https://github.com/npetras/cs39440_project_report)
 
-[Project Report](https://github.com/npetras/cs39440_project_outline)
+[Project Report](https://github.com/npetras/cs39440_project_outline_v2)
 
 # Repository Structure
-
+**notes**: back-ups of notes taken on Notion or other note taking platform, which includes the project diary, supervisor meeting minutes and many other notes.
 
 # Build
