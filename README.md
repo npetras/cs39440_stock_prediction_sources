@@ -18,3 +18,6 @@ The reports (documentation) are stored in separate repositories that are linked 
 **spike_work**: stores sources which have been created during learning and experimentation, before writing official sources/programs. 
 
 # Build
+
+# Notes
+This repository uses the [Google Python Style Guide](https://google.github.io/styleguide/pyguide.html).
