@@ -15,4 +15,6 @@ The reports (documentation) are stored in separate repositories that are linked 
 
 **notes**: back-ups of notes taken on Notion or other note taking platform, which includes the project diary, supervisor meeting minutes and many other notes.
 
+**spike_work**: stores sources which have been created during learning and experimentation, before writing official sources/programs. 
+
 # Build
