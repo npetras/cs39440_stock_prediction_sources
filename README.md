@@ -10,7 +10,11 @@ The reports (documentation) are stored in separate repositories that are linked 
 
 [Project Report](https://github.com/npetras/cs39440_project_outline_v2)
 
-# Repository Structure
+# Top Level Repository Structure
+**datasets**: stores the main datasets that are going to be used by the tool. These datasets include existing ones that have been downloaded from the internet, and datasets I have created myself. 
+
 **notes**: back-ups of notes taken on Notion or other note taking platform, which includes the project diary, supervisor meeting minutes and many other notes.
+
+**spike_work**: stores sources which have been created during learning and experimentation, before writing official sources/programs. 
 
 # Build
