@@ -56,3 +56,30 @@ lda_model = LdaModel(
 )
 
 print(lda_model.print_topics(-1))
+
+# Sentiment Analysis
+def sentiment_score(sentences):
+    analyzer = SentimentIntensityAnalyzer()
+    results = []
+    for sentence in sentences:
+        vs = analyzer.polarity_scores(sentence)
+        print(str(vs))
+        results.append(vs)
+    return results
+
+sentiment = sentiment_score(df['new_reviews'])
+
+sentiment_df = pd.DataFrame(sentiment)
+
+df.index = sentiment_df.index
+sentiment_df['rating'] = df['rating']
+echo_vader = pd.concat([df, sentiment_df], axis=1)
+print(echo_vader.head(10))
+
+# looking at words that contributed positive and negative sentiment
+# neg_alexa = df[df['sentiment']=='negative']
+# pos_alexa = df[df['sentiment']=='positive']
+
+# from sklearn.feature_selection import chi2
+
+# tfodf_n = TfidfVectorizer(ngram_range=(2,2))
