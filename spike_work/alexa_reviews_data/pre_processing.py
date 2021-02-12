@@ -5,6 +5,7 @@ import pandas as pd
 from nltk.corpus import stopwords
 from wordcloud import WordCloud, STOPWORDS
 import spacy
+import pickle
 
 def remove_emoji(text):
     emoji_pattern = re.compile("["
@@ -26,7 +27,7 @@ df = pd.read_csv('amazon_alexa.tsv', sep = '\t')
 print(df.head())
 nlp = spacy.load('en', disable=['parser', 'ner'])
 
-# creates new column 'new_reviews' replacing the 'verified_reviews' column
+# creates new column 'new_reviews'
 # converting verified_reviews column to lowercase
 df['new_reviews'] = df['verified_reviews'].apply(lambda x: " ".join(x.lower() for x in x.split()))
 print(df['new_reviews'].head())
@@ -47,3 +48,8 @@ print(df.head(20))
 # lemmataization
 df['new_reviews'] = df['new_reviews'].apply(space)
 print(df.head(20))
+
+file = open('alexa_reviews_clean.pkl', 'wb')
+
+pickle.dump(df, file)
+file.close()
