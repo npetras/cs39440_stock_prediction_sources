@@ -1,2 +1,5 @@
 # MacOS temp files
 .DS_Store
+
+# PyNotebooks Temp Files/Check points
+.ipynb_checkpoints
