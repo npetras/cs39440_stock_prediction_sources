@@ -38,23 +38,12 @@ def remove_punct(text):
     
 def remove_stopwords(text):
     """
+    Returns the 'text' with all its stopwords removed. The list of stopwords used 
+    is nltk's list of english stopwords.
     """
     stop_words = stopwords.words('english')
-    words = word_tokenize(text)
-    # regex for stopwords that should not be removed from text, since they have negative sentiment
-    whitelist = [".*n't", 'not', 'no']
-    modified_stop_words = []
-    processed_text_list = []
-
-    # create a new list of stop words without those on the white list
-    for stop_word in stop_words:
-        if re.match(whitelist[0], stop_word) or re.match(whitelist[1], stop_word) or re.match(whitelist[2], stop_word):
-            continue
-        else:
-            modified_stop_words.append(stop_word)
-    
-    processed_text_list = [word for word in words if (word not in modified_stop_words)]
-
+    words = word_tokenize(text)    
+    processed_text_list = [word for word in words if (word not in stop_words)]
     return treebank.TreebankWordDetokenizer().detokenize(processed_text_list)
 
 def lemmatization(text):
