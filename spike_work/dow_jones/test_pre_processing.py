@@ -44,8 +44,16 @@ class TestPreprocessing(unittest.TestCase):
         result = preprocess.remove_stopwords(text)
         self.assertEqual(result, expected_text)
 
-    def test_remove_stopwords_whitelist_words(self):
-        pass
+    def test_apply_all_1(self):
+        text  = """I Know We've Got This Election in US To Worry, But I Wanted To Help Shine More Light On Our Australian Friends Potential 'Internet Filter' Problem. Let's Keep That In The Spotlight Too!"""
+        expected_text  = """Know Got Election US Worry Wanted Help Shine Light Australian Friend Potential Internet Filter Problem Let Keep Spotlight""".lower()
+        # result = preprocess.apply_all(text)
+        # self.assertEqual(result, expected_text)
 
+    def test_apply_all_2(self):
+        text  = """ """
+        expected_text  = """ """.lower()
+        # result = preprocess.apply_all(text)
+        # self.assertEqual(result, expected_text)
 if __name__=='__main__':
     unittest.main()

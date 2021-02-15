@@ -63,7 +63,15 @@ def lemmatization(text):
     pass
 
 def apply_all(text):
+    """
+    Returns the 'text' with all of the above pre-processing steps applied to it, in the correct order: 
+    convert text to lowercase, remove pucntuation, remove stop words, and applies lemmatization to 
+    the text. 
+    """
     processed_text = to_lowercase(text)
+    processed_text = remove_punct(processed_text)
+    processed_text = remove_stopwords(processed_text)
+    return lemmatize_text(processed_text)
 
 # read in file
 
