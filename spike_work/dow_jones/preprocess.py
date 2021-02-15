@@ -9,6 +9,8 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.tokenize import treebank
 
+import spacy
+
 # does not include % or $, since those are useful in terms of stocks
 PUNCT_REGEX = """[!"#&\'()*\+,-.\/\\:;<=>?@\[\]^_`{}~\|]"""
 DOUBLE_SPACE = '  '
@@ -46,10 +48,16 @@ def remove_stopwords(text):
     processed_text_list = [word for word in words if (word not in stop_words)]
     return treebank.TreebankWordDetokenizer().detokenize(processed_text_list)
 
-def lemmatization(text):
+def lemmatize_text(text):
     """
+    Returns the text with lemmatization applied to it -- each word in converted 
+    to its base dictionary word (lemma).
     """
-    pass
+    nlp = spacy.load('en_core_web_sm')
+    doc = nlp(text)
+    tokens = [token.lemma_ for token in doc]
+    return treebank.TreebankWordDetokenizer().detokenize(tokens)
+
 
 def apply_all(text):
     """
