@@ -27,7 +27,14 @@ def remove_punct(text):
     Returns the string 'text' with its punctuation removed, this function expects
     'text' to be a string.
     """
-    return text.translate(str.maketrans('', '', string.punctuation))
+    punctuation = string.punctuation
+    # text without punctuation (punctuation has been replaced by spaces)
+    processed_text = text.translate(str.maketrans(punctuation, len(punctuation) * ' '))
+    # remove double, triple spaces with a single space
+    processed_text = re.sub('\s+', ' ', processed_text)
+    # remove dangling space
+    # s at the end of the string
+    return re.sub('\s+$', '', processed_text)
     
 def remove_stopwords(text):
     """

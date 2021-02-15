@@ -21,8 +21,8 @@ class TestPreprocessing(unittest.TestCase):
         self.assertEqual(result, expected_text)
 
     def test_punct_complex_string(self):
-        text = """Hello how's are you #twitter doing (fifty) '{n}' today?!"""
-        expected_text = "Hello hows are you twitter doing fifty n today"
+        text = """Hello how's didn't are you #twitter doing (fifty) '{n}' today?!"""
+        expected_text = "Hello how s didn t are you twitter doing fifty n today"
         result = preprocess.remove_punct(text)
         self.assertEqual(result, expected_text)
     
