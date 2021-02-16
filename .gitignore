@@ -3,3 +3,9 @@
 
 # PyNotebooks Temp Files/Check points
 .ipynb_checkpoints
+
+# VSCode
+.vscode
+
+# python
+__pycache__
