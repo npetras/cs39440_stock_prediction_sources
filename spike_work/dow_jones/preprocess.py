@@ -17,6 +17,13 @@ DOUBLE_SPACE = '  '
 SPACE = ' '
 BLANK = ''
 
+def remove_b(text):
+    """
+    Returns a the 'text' with a b at the start of the string removed.
+    This b is present in the DowJones dataset for all headlines.
+    """
+    return re.sub('^b', '', text)
+
 def to_lowercase(text):
     """
     Returns the 'text' as a lowercase string, by simply apply the lower() to the
@@ -74,7 +81,8 @@ def apply_all(text):
     convert text to lowercase, remove pucntuation, remove stop words, and applies lemmatization to 
     the text. 
     """
-    processed_text = to_lowercase(text)
+    processed_text = remove_b(text)
+    processed_text = to_lowercase(processed_text)
     processed_text = remove_punct(processed_text)
     processed_text = remove_stopwords(processed_text)
     return lemmatize_text(processed_text)
