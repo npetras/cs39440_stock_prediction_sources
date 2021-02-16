@@ -7,6 +7,12 @@ US_ELECTION_HEADLINE_RAW_LC = US_ELECTION_HEADLINE_RAW.lower()
 
 class TestPreprocessing(unittest.TestCase):
 
+    def test_remove_b(self):
+        text = """b"The 'enemy combatent' trials are nothing but a sham: Salim Haman has been sentenced to 5 1/2 years, but will be kept longer anyway just because they feel like it.\""""
+        expected_text = """\"The 'enemy combatent' trials are nothing but a sham: Salim Haman has been sentenced to 5 1/2 years, but will be kept longer anyway just because they feel like it.\""""
+        result = preprocess.remove_b(text)
+        self.assertEqual(result, expected_text)
+
     def test_to_lowercase_all_caps(self):
         text = "HELLO HOW ARE YOU?"
         expected_text = "hello how are you?"
@@ -84,17 +90,16 @@ class TestPreprocessing(unittest.TestCase):
         self.assertEqual(result, expected_text)
                 
     def test_apply_all_short_headline(self):
-        text  = """Georgia 'downs two Russian warplanes' as countries move to brink of war"""
+        text  = """b"Georgia 'downs two Russian warplanes' as countries move to brink of war\""""
         expected_text  = "georgia down two russian warplane country move brink war"
         result = preprocess.apply_all(text)
         self.assertEqual(result, expected_text)
 
     def test_apply_all_long_headline(self):
-        text  = US_ELECTION_HEADLINE_RAW_LC
+        text  = 'b"' + US_ELECTION_HEADLINE_RAW
         expected_text  = "know get election us worry want help shine light australian friend potential internet filter problem let keep spotlight"
         result = preprocess.apply_all(text)
         self.assertEqual(result, expected_text)
 
 if __name__=='__main__':
     unittest.main()
-    
