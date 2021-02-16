@@ -55,7 +55,16 @@ def lemmatize_text(text):
     """
     nlp = spacy.load('en_core_web_sm')
     doc = nlp(text)
-    tokens = [token.lemma_ for token in doc]
+    tokens = []
+
+    # ensures that the 'US'(country) is not treated as a pronoun and does not 
+    # get replaced with -PRON-
+    for token in doc:
+        if token.text == 'us':
+            tokens.append(token.text)
+        else:
+            tokens.append(token.lemma_)
+
     return treebank.TreebankWordDetokenizer().detokenize(tokens)
 
 
