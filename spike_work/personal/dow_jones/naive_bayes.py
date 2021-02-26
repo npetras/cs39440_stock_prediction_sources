@@ -21,50 +21,56 @@ def combine_headline_rows(data_frame):
 
     return combined_headlines
 
-# import and split data
-djia_df= pd.read_csv(constants.ABS_PATH_TO_DATASET)
-train_df = djia_df[djia_df['Date'] < '2015-01-01']
-test_df = djia_df[djia_df['Date'] > '2014-12-31']
+def train_eval_model(train_data, train_labels, classifier, test_data, test_labels):
+    model = classifier.fit(train_data, train_labels)
+    score = model.score(test_data, test_labels)
+    print(f"{classifier.__class__.__name__} Accuracy: {score}\n")
+    return model
 
-# basic preprocessing that is required
-# combine each row into one string
-train_headlines_data = combine_headline_rows(train_df)
-print("Train Headlines:")
-print(train_headlines_data[0] + '\n')
+def print_coefficients(model, word_features):
+    coefficients = model.coef_.tolist()[0]
+    feature_weighting = pd.DataFrame({'Word' : word_features, 'Coefficient' : coefficients})
+    sorted_feature_weighting = feature_weighting.sort_values(['Coefficient', 'Word'], ascending=[0, 1])
+    print("Top positive features:")
+    print(sorted_feature_weighting.head(10))
+    print("Top negative features:")
+    print(sorted_feature_weighting.tail(10))
 
-test_headlines_data = combine_headline_rows(test_df)
-print("Test Headlines:")
-print(test_headlines_data[0] + '\n')
+if __name__ == "__main__":
+    # import and split data
+    djia_df= pd.read_csv(constants.ABS_PATH_TO_DATASET)
+    train_df = djia_df[djia_df['Date'] < '2015-01-01']
+    test_df = djia_df[djia_df['Date'] > '2014-12-31']
 
-# count vectorizer, sklearn approach
-# feature extraction
-count_vectorizer = CountVectorizer()
-vectorized_train_data = count_vectorizer.fit_transform(train_headlines_data)
-vectorized_test_data = count_vectorizer.transform(test_headlines_data)
+    # basic preprocessing that is required
+    # combine each row into one string
+    train_headlines_data = combine_headline_rows(train_df)
+    print("Train Headlines:")
+    print(train_headlines_data[0] + '\n')
 
-# training model
-naive_bayes_classifier = MultinomialNB()
-naive_bayes_model = naive_bayes_classifier.fit(vectorized_train_data, train_df['Label'])
-# test/evaluation
-nb_prediction_score = naive_bayes_model.score(vectorized_test_data, test_df['Label'])
-print(f"Sklearn MultinomiaNB Accuracy: {nb_prediction_score}\n")
+    test_headlines_data = combine_headline_rows(test_df)
+    print("Test Headlines:")
+    print(test_headlines_data[0] + '\n')
 
-nb_word_features = count_vectorizer.get_feature_names()
-nb_coefficients = naive_bayes_model.coef_.tolist()[0]
-nb_feature_weighting = pd.DataFrame({'Word' : nb_word_features, 'Coefficient' : nb_coefficients})
-nb_sorted_feature_weighting = nb_feature_weighting.sort_values(['Coefficient', 'Word'], ascending=[0, 1])
-print(nb_sorted_feature_weighting.head(10))
-print(nb_sorted_feature_weighting.tail(10))
+    # bag of words, no pre-processing
+    # feature extraction
+    count_vectorizer = CountVectorizer()
+    vectorized_train_data = count_vectorizer.fit_transform(train_headlines_data)
+    vectorized_test_data = count_vectorizer.transform(test_headlines_data)
+    feature_names = count_vectorizer.get_feature_names()
+    filtered_list = filter(lambda x: x == 'for', feature_names)
+    print("Count Vectorizer Features: ")
+    print(f"{feature_names[1000:1200]}\n")
+    print(f"feature length: {len(feature_names)}")
+    for item in filtered_list:
+        print(item)
 
-log_reg_classifier = LogisticRegression()
-log_reg_model = log_reg_classifier.fit(vectorized_train_data, train_df['Label'])
-lr_prediction_score = log_reg_model.score(vectorized_test_data, test_df['Label'])
-print(f"Sklearn LogisticRegression Accuracy: {lr_prediction_score}\n")
-
-lr_word_features = count_vectorizer.get_feature_names()
-lr_coefficients = log_reg_model.coef_.tolist()[0]
-lr_feature_weighting = pd.DataFrame({'Word' : lr_word_features, 'Coefficient' : lr_coefficients})
-lr_sorted_feature_weighting = lr_feature_weighting.sort_values(['Coefficient', 'Word'], ascending=[0, 1])
-print(lr_sorted_feature_weighting.head(10))
-print(lr_sorted_feature_weighting.tail(10))
+    # Naive Bayes
+    nb_model = train_eval_model(vectorized_train_data, train_df['Label'], MultinomialNB(), vectorized_test_data, test_df['Label'])
+    nb_word_features = count_vectorizer.get_feature_names()
+    print_coefficients(nb_model, nb_word_features)
+    # Logisitic Regression
+    lr_model = train_eval_model(vectorized_train_data, train_df['Label'], LogisticRegression(), vectorized_test_data, test_df['Label'])
+    lr_word_features = count_vectorizer.get_feature_names()
+    print_coefficients(lr_model, lr_word_features)
 
