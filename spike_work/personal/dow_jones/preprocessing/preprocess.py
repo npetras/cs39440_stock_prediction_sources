@@ -24,6 +24,11 @@ def remove_b(text):
     """
     return re.sub('^b', '', text)
 
+def remove_start_end_quotes(text):
+    processed_text = re.sub('''^["']''', BLANK, text)
+    processed_text = re.sub('''["']$''', BLANK, processed_text)
+    return processed_text
+
 def to_lowercase(text):
     """
     Returns the 'text' as a lowercase string, by simply apply the lower() to the

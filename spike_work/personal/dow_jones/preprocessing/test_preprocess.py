@@ -13,6 +13,18 @@ class TestPreprocessing(unittest.TestCase):
         result = preprocess.remove_b(text)
         self.assertEqual(result, expected_text)
 
+    def test_remove_start_end_quotes_single(self):
+        text = """\'The 'enemy combatent' trials are nothing but a sham: Salim Haman has been sentenced to 5 1/2 years, but will be kept longer anyway just because they feel like it.\'"""
+        expected_text = """The 'enemy combatent' trials are nothing but a sham: Salim Haman has been sentenced to 5 1/2 years, but will be kept longer anyway just because they feel like it."""
+        result = preprocess.remove_start_end_quotes(text)
+        self.assertEqual(result, expected_text)
+    
+    def test_remove_start_end_quotes_double(self):
+        text = """\"The 'enemy combatent' trials are nothing but a sham: Salim Haman has been sentenced to 5 1/2 years, but will be kept longer anyway just because they feel like it.\""""
+        expected_text = """The 'enemy combatent' trials are nothing but a sham: Salim Haman has been sentenced to 5 1/2 years, but will be kept longer anyway just because they feel like it."""
+        result = preprocess.remove_start_end_quotes(text)
+        self.assertEqual(result, expected_text)
+
     def test_to_lowercase_all_caps(self):
         text = "HELLO HOW ARE YOU?"
         expected_text = "hello how are you?"
