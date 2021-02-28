@@ -4,6 +4,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.linear_model import LogisticRegression
 from nltk.classify import scikitlearn
+from nltk.corpus import stopwords
 
 from preprocessing import preprocess
 import constants
@@ -55,23 +56,36 @@ if __name__ == "__main__":
     # bag of words, no pre-processing
     # feature extraction
     cv_wo_preprocess = CountVectorizer()
-    vectorized_train_data = cv_wo_preprocess.fit_transform(train_headlines_data)
-    vectorized_test_data = cv_wo_preprocess.transform(test_headlines_data)
-    feature_names = cv_wo_preprocess.get_feature_names()
-    filtered_list = filter(lambda x: x == 'for', feature_names)
+    cv_train_basic = cv_wo_preprocess.fit_transform(train_headlines_data)
+    cv_test_basic = cv_wo_preprocess.transform(test_headlines_data)
+    cv_feat_names_basic = cv_wo_preprocess.get_feature_names()
+    filtered_list = filter(lambda x: x == 'for', cv_feat_names_basic)
     print("Count Vectorizer Features: ")
-    print(f"{feature_names[1000:1200]}\n")
-    print(f"feature length: {len(feature_names)}")
+    print(f"{cv_feat_names_basic[1000:1200]}\n")
+    print(f"feature length: {len(cv_feat_names_basic)}")
 
     # Naive Bayes
-    nb_model = train_eval_model(vectorized_train_data, train_df['Label'], MultinomialNB(), vectorized_test_data, test_df['Label'])
+    nb_model = train_eval_model(cv_train_basic, train_df['Label'], MultinomialNB(), cv_test_basic, test_df['Label'])
     nb_word_features = cv_wo_preprocess.get_feature_names()
     print_coefficients(nb_model, nb_word_features)
     # Logisitic Regression
-    logr_model = train_eval_model(vectorized_train_data, train_df['Label'], LogisticRegression(), vectorized_test_data, test_df['Label'])
+    logr_model = train_eval_model(cv_train_basic, train_df['Label'], LogisticRegression(), cv_test_basic, test_df['Label'])
     logr_word_features = cv_wo_preprocess.get_feature_names()
     print_coefficients(logr_model, logr_word_features)
 
     # apply stop word removal and check the impact on the results
+    nltk_stop_words = stopwords.words('english')
+    cv_stopwords = CountVectorizer(stop_words=nltk_stop_words)
+    cv_train_stopwords = cv_stopwords.fit_transform(train_headlines_data)
+    cv_test_stopwords = cv_stopwords.transform(test_headlines_data)
+    stopword_cv_features = cv_stopwords.get_feature_names()
+
+    nb_stopwords_model = train_eval_model(cv_train_stopwords, train_df['Label'], MultinomialNB(), cv_test_stopwords, test_df['Label'])
+    print_coefficients(nb_stopwords_model, stopword_cv_features)
+
+    logr_stopwords_model = train_eval_model(cv_train_stopwords, train_df['Label'], LogisticRegression(), cv_test_stopwords, test_df['Label'])
+    print_coefficients(logr_stopwords_model, stopword_cv_features)
+
+    # apply stemming and check the impact
 
     # apply lemmatisation and check the impact
