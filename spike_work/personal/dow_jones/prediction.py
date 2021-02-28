@@ -54,23 +54,24 @@ if __name__ == "__main__":
 
     # bag of words, no pre-processing
     # feature extraction
-    count_vectorizer = CountVectorizer()
-    vectorized_train_data = count_vectorizer.fit_transform(train_headlines_data)
-    vectorized_test_data = count_vectorizer.transform(test_headlines_data)
-    feature_names = count_vectorizer.get_feature_names()
+    cv_wo_preprocess = CountVectorizer()
+    vectorized_train_data = cv_wo_preprocess.fit_transform(train_headlines_data)
+    vectorized_test_data = cv_wo_preprocess.transform(test_headlines_data)
+    feature_names = cv_wo_preprocess.get_feature_names()
     filtered_list = filter(lambda x: x == 'for', feature_names)
     print("Count Vectorizer Features: ")
     print(f"{feature_names[1000:1200]}\n")
     print(f"feature length: {len(feature_names)}")
-    for item in filtered_list:
-        print(item)
 
     # Naive Bayes
     nb_model = train_eval_model(vectorized_train_data, train_df['Label'], MultinomialNB(), vectorized_test_data, test_df['Label'])
-    nb_word_features = count_vectorizer.get_feature_names()
+    nb_word_features = cv_wo_preprocess.get_feature_names()
     print_coefficients(nb_model, nb_word_features)
     # Logisitic Regression
-    lr_model = train_eval_model(vectorized_train_data, train_df['Label'], LogisticRegression(), vectorized_test_data, test_df['Label'])
-    lr_word_features = count_vectorizer.get_feature_names()
-    print_coefficients(lr_model, lr_word_features)
+    logr_model = train_eval_model(vectorized_train_data, train_df['Label'], LogisticRegression(), vectorized_test_data, test_df['Label'])
+    logr_word_features = cv_wo_preprocess.get_feature_names()
+    print_coefficients(logr_model, logr_word_features)
 
+    # apply stop word removal and check the impact on the results
+
+    # apply lemmatisation and check the impact
