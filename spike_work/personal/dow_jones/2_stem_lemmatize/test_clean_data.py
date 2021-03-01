@@ -53,8 +53,6 @@ class TestPreprocessing(unittest.TestCase):
         detokenized_text = 'Rice Gives Green Light for Israel to Attack Iran Says has no veto over Israeli military ops'
         result = clean_data.detokenize(tokenized_list)
         self.assertEqual(result, detokenized_text)
-
-
     
     def test_remove_stopwords_basic(self):
         tokenized_list = ['hello', "how", "didn", 'are', 'you', 'twitter', 'doing', 'fifty', 'today']

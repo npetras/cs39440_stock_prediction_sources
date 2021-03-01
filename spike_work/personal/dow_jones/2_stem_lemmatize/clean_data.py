@@ -31,8 +31,9 @@ def to_lowercase(text):
 def sklearn_tokenize(text):
     """
     """
-    tokenizer = CountVectorizer().build_tokenizer()
-    return tokenizer(text)
+    sklearn_tokenizer = CountVectorizer().build_tokenizer()
+    return sklearn_tokenizer(text)
+
 
 def detokenize(tokenized_text):
     detokenizer = treebank.TreebankWordDetokenizer()
