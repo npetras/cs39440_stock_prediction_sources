@@ -85,7 +85,3 @@ if __name__ == "__main__":
 
     logr_stopwords_model = train_eval_model(cv_train_stopwords, train_df['Label'], LogisticRegression(), cv_test_stopwords, test_df['Label'])
     print_coefficients(logr_stopwords_model, stopword_cv_features)
-
-    # apply stemming and check the impact
-
-    # apply lemmatisation and check the impact
