@@ -2,8 +2,17 @@ import unittest
 
 
 class MyTestCase(unittest.TestCase):
-    def test_something(self):
-        self.assertEqual(True, False)
+    """
+    Placeholder test class for the main file
+    """
+
+
+def test_something(self):
+    """
+    Example test
+    :param self:
+    :return:
+    """
     self.assertEqual(True, True)
 
 
