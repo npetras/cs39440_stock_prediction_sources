@@ -1,0 +1,9 @@
+language: python
+python:
+  - "3.9"
+install:
+  - pip install -r source/stockPrediction/requirements.txt
+script:
+  - python -m unittest discover source/stockPrediction/test
+  - pylint source/stockPrediction/main
+  - pylint source/stockPrediction/test
