@@ -1,8 +1,8 @@
-import unittest
-
 """
 Example Test Class for the main.py file
 """
+
+import unittest
 
 
 class MyTestCase(unittest.TestCase):
