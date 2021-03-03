@@ -4,4 +4,5 @@ python:
 install:
   - pip install -r source/stockPrediction/requirements.txt
 script:
-  - ./run_tests.sh
+  - python -m unittest discover source/stockPrediction/test
+
