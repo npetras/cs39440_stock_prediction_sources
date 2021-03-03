@@ -1,5 +1,9 @@
 import unittest
 
+"""
+Example Test Class for the main.py file
+"""
+
 
 class MyTestCase(unittest.TestCase):
     """
