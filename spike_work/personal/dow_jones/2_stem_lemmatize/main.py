@@ -73,6 +73,8 @@ if __name__ == "__main__":
     nltk_stop_words = stopwords.words('english')
 
     # advanced stop words
+    print("--- Advanced Stopword Removal ---")
+
     cv_adv_stopwords = CountVectorizer(stop_words=nltk_stop_words, max_df=0.97, min_df=0.03)
     cv_train_adv_stopwords = cv_adv_stopwords.fit_transform(train_headlines_data)
     cv_test_adv_stopwords = cv_adv_stopwords.transform(test_headlines_data)
@@ -80,6 +82,8 @@ if __name__ == "__main__":
 
     nb_adv_stopwords_model = train_eval_model(cv_train_adv_stopwords, train_df['Label'], MultinomialNB(), cv_test_adv_stopwords, test_df['Label'])
     print_coefficients(nb_adv_stopwords_model, cv_adv_stopwords_features)
+    lr_adv_stopwords_model = train_eval_model(cv_train_adv_stopwords, train_df['Label'], LogisticRegression(), cv_test_adv_stopwords, test_df['Label'])
+    print_coefficients(lr_adv_stopwords_model, cv_adv_stopwords_features)
 
     # prediction with stemmed headlines
     # stem the headlines
@@ -90,6 +94,7 @@ if __name__ == "__main__":
     # print()
 
     # stem only
+    print("--- Stemming Only ---")
     cv_stem = CountVectorizer()
     cv_train_stem = cv_stem.fit_transform(stemmed_train_data)
     cv_test_stem = cv_stem.transform(stemmed_test_data)
@@ -99,21 +104,40 @@ if __name__ == "__main__":
 
     nb_stem_model = train_eval_model(cv_train_stem, train_df['Label'], MultinomialNB(), cv_test_stem, test_df['Label'])
     print_coefficients(nb_stem_model, cv_stem_features)
+    lr_stem_model = train_eval_model(cv_train_stem, train_df['Label'], LogisticRegression(), cv_test_stem, test_df['Label'])
+    print_coefficients(lr_stem_model, cv_stem_features)
+
 
     # stem and stopwords
-    cv_stem_stopwords = CountVectorizer(stop_words=nltk_stop_words, max_df=0.97, min_df=0.03)
+    print("--- Stemming and Stop Word Removal ----")
+    cv_stem_stopwords = CountVectorizer(stop_words=nltk_stop_words)
     cv_train_stem_stopwords = cv_stem_stopwords.fit_transform(stemmed_train_data)
     cv_test_stem_stopwords = cv_stem_stopwords.transform(stemmed_test_data)
     cv_stem_stopwords_features = cv_stem_stopwords.get_feature_names()
 
     nb_stem_stopwords_model = train_eval_model(cv_train_stem_stopwords, train_df['Label'], MultinomialNB(), cv_test_stem_stopwords, test_df['Label'])
     print_coefficients(nb_stem_stopwords_model, cv_stem_stopwords_features)
+    lr_stem_stopwords_model = train_eval_model(cv_train_stem_stopwords, train_df['Label'], LogisticRegression(), cv_test_stem_stopwords, test_df['Label'])
+    print_coefficients(lr_stem_stopwords_model, cv_stem_stopwords_features)
+
+    # stem and advanced stop words
+    print("--- Stemming and Advanced Stop Word Removal ----")
+    cv_stem_stopwords_adv = CountVectorizer(stop_words=nltk_stop_words, max_df=0.97, min_df=0.03)
+    cv_train_stem_stopwords_adv = cv_stem_stopwords_adv.fit_transform(stemmed_train_data)
+    cv_test_stem_stopwords_adv = cv_stem_stopwords_adv.transform(stemmed_test_data)
+    cv_stem_stopwords_adv_feats = cv_stem_stopwords_adv.get_feature_names()
+
+    nb_stem_stopwords_adv_model = train_eval_model(cv_train_stem_stopwords_adv, train_df['Label'], MultinomialNB(), cv_test_stem_stopwords_adv, test_df['Label'])
+    print_coefficients(nb_stem_stopwords_adv_model, cv_stem_stopwords_adv_feats)
+    lr_stem_stopwords_adv_model = train_eval_model(cv_train_stem_stopwords_adv, train_df['Label'], LogisticRegression(), cv_test_stem_stopwords_adv, test_df['Label'])
+    print_coefficients(lr_stem_stopwords_adv_model, cv_stem_stopwords_adv_feats)
 
     # prediction with lemmatized headlines
+    print("--- Lemmatisation Only ----")
     lemmatized_train_data = lemmatize_all_headlines(train_headlines_data)
     lemmatized_test_data = lemmatize_all_headlines(test_headlines_data)
-    print(lemmatized_train_data[0])
-    print(lemmatized_train_data[1])
+    # print(lemmatized_train_data[0])
+    # print(lemmatized_train_data[1])
 
     # lemmatize only
     cv_lemmatize = CountVectorizer()
@@ -123,8 +147,11 @@ if __name__ == "__main__":
 
     nb_lemmatize_model = train_eval_model(cv_train_lemmatize, train_df['Label'], MultinomialNB(), cv_test_lemmatize, test_df['Label'])
     print_coefficients(nb_lemmatize_model, cv_lemmatize_features)
+    lr_lemmatize_model = train_eval_model(cv_train_lemmatize, train_df['Label'], LogisticRegression(), cv_test_lemmatize, test_df['Label'])
+    print_coefficients(lr_lemmatize_model, cv_lemmatize_features)
     
-
+    # lemmatize and stopwords
+    print("--- Lemmatisation and Stop Word Removal ----")
     cv_lemmatize_stopwords = CountVectorizer(stop_words=nltk_stop_words)
     cv_train_lemmatize_stopwords = cv_lemmatize_stopwords.fit_transform(lemmatized_train_data)
     cv_test_lemmatize_stopwords = cv_lemmatize_stopwords.transform(lemmatized_test_data)
@@ -132,3 +159,17 @@ if __name__ == "__main__":
 
     nb_lemmatize_stopwords_model = train_eval_model(cv_train_lemmatize_stopwords, train_df['Label'], MultinomialNB(), cv_test_lemmatize_stopwords, test_df['Label'])
     print_coefficients(nb_lemmatize_stopwords_model, cv_lemmatize_stopwords_features)
+    lr_lemmatize_stopwords_model = train_eval_model(cv_train_lemmatize_stopwords, train_df['Label'], LogisticRegression(), cv_test_lemmatize_stopwords, test_df['Label'])
+    print_coefficients(lr_lemmatize_stopwords_model, cv_lemmatize_stopwords_features)
+
+    # lemmatize and adv stopwords
+    print("--- Lemmatisation and Advanced Stop Word Removal ----")
+    cv_lemmatize_stopwords_adv = CountVectorizer(stop_words=nltk_stop_words, max_df=0.97, min_df=0.03)
+    cv_train_lemmatize_stopwords_adv = cv_lemmatize_stopwords_adv.fit_transform(lemmatized_train_data)
+    cv_test_lemmatize_stopwords_adv = cv_lemmatize_stopwords_adv.transform(lemmatized_test_data)
+    cv_lemmatize_stopwords_adv_feats = cv_lemmatize_stopwords_adv.get_feature_names()
+
+    nb_lemmatize_stopwords_adv = train_eval_model(cv_train_lemmatize_stopwords_adv, train_df['Label'], MultinomialNB(), cv_test_lemmatize_stopwords_adv, test_df['Label'])
+    print_coefficients(nb_lemmatize_stopwords_adv, cv_lemmatize_stopwords_adv_feats)
+    lr_lemmatize_stopwords_adv = train_eval_model(cv_train_lemmatize_stopwords_adv, train_df['Label'], LogisticRegression(), cv_test_lemmatize_stopwords_adv, test_df['Label'])
+    print_coefficients(lr_lemmatize_stopwords_adv, cv_lemmatize_stopwords_adv_feats)

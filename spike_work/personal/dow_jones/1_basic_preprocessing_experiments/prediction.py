@@ -55,14 +55,15 @@ if __name__ == "__main__":
 
     # bag of words, no pre-processing
     # feature extraction
+    print("--- No Preprocessing ----")
     cv_wo_preprocess = CountVectorizer()
     cv_train_basic = cv_wo_preprocess.fit_transform(train_headlines_data)
     cv_test_basic = cv_wo_preprocess.transform(test_headlines_data)
     cv_feat_names_basic = cv_wo_preprocess.get_feature_names()
     filtered_list = filter(lambda x: x == 'for', cv_feat_names_basic)
-    print("Count Vectorizer Features: ")
-    print(f"{cv_feat_names_basic[1000:1200]}\n")
-    print(f"feature length: {len(cv_feat_names_basic)}")
+    # print("Count Vectorizer Features: ")
+    # print(f"{cv_feat_names_basic[1000:1200]}\n")
+    # print(f"feature length: {len(cv_feat_names_basic)}")
 
     # Naive Bayes
     nb_model = train_eval_model(cv_train_basic, train_df['Label'], MultinomialNB(), cv_test_basic, test_df['Label'])
@@ -74,6 +75,7 @@ if __name__ == "__main__":
     print_coefficients(logr_model, logr_word_features)
 
     # apply stop word removal and check the impact on the results
+    print("--- Stopword Removal ---")
     nltk_stop_words = stopwords.words('english')
     cv_stopwords = CountVectorizer(stop_words=nltk_stop_words)
     cv_train_stopwords = cv_stopwords.fit_transform(train_headlines_data)
