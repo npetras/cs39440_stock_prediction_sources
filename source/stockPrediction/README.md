@@ -1,9 +1,16 @@
 # Stock Prediction Application
 # Installation
-* Need to download the following data from nltk:
-    * wordnet
-    * averaged_perceptron_tagger
-* This can be done so at the command line with the following:
+Make sure you have python and pip installed.
+
+Install the software required for this program
+
+```
+pip install -r requirements.txt
+```
+
+Need to download the following data from nltk: wordnet and averaged_perceptron_tagger.
+
+This can be done so at the command line with the following:
 ```
 $ python -c "import nltk; nltk.download('wordnet'); nltk.download('averaged_perceptron_tagger')"
 ```
