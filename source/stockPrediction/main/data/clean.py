@@ -3,9 +3,12 @@ Contains all functions used to clean the data/remove noise from the data.
 """
 
 import sklearn.feature_extraction.text as feature_extraction
+import nltk
 import nltk.stem.wordnet
 import nltk.stem.porter
 import nltk.corpus.reader.wordnet as wordnet_corpus
+
+nltk.download('averaged_perceptron_tagger')
 
 
 def sklearn_tokenize(text):
