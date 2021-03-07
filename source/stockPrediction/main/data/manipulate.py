@@ -4,6 +4,7 @@ Functions to manipulate the data in some basic form e.g. combining multiple stri
 
 from nltk.tokenize import treebank
 
+
 def combine_strings(string_list):
     """
     Combines a list of strings into a single string
