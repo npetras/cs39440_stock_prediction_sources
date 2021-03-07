@@ -1,5 +1,7 @@
 # CS39440 Major Project: Predicting Stock Market Trends from News Headlines
 
+[![Build Status](https://www.travis-ci.com/npetras/cs39440_stock_prediction_sources.svg?token=MmLDistGnsqM7sy8oz7n&branch=master)](https://www.travis-ci.com/npetras/cs39440_stock_prediction_sources)
+
 Author: Nicolas Petras (nip19)
 
 This repository contains the program sources for my major project in 'Predicting Stock Market Trends from News Headlines' using machine learning techniques. This repository only includes the technical work for the project. 
