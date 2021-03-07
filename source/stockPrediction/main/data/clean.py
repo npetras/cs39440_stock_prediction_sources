@@ -6,6 +6,8 @@ import sklearn.feature_extraction.text as feature_extraction
 import nltk
 import nltk.stem.wordnet
 import nltk.stem.porter
+# pylint: disable=E0611
+# issue with nltk, or bad error from pylint
 import nltk.corpus.reader.wordnet as wordnet_corpus
 
 
@@ -38,8 +40,8 @@ def porter_stem(tokenized_text):
 
 def simple_pos_tag(pos_tag):
     """
-    Provides the simple part of speech (POS) tag that the WordNetLemmatizer expects, converting the more complex Penn
-    Treebank POS tags
+    Converts the complex, and informative the Penn Treebank part of speech (POS) tag produce by
+    nltk.pos_tag() into the simplified POS tags expected by the WordNetLemmatizer.
     :param pos_tag: a Treebank POS tag
     :return: simplified Treebank POS tag: Noun, Verb, Adjective, Adverb or other (None)
     """

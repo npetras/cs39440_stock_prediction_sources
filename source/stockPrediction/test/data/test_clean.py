@@ -2,10 +2,10 @@
 Test module for the module main.data.clean
 """
 import unittest
-from main.data import clean
-
+# pylint: disable=E0611
+# issue with nltk, or bad error from pylint
 import nltk.corpus.reader.wordnet as wordnet_corpus
-
+from main.data import clean
 
 GEORGIA_HEADLINE_LC = "georgia downs two russian warplanes as countries move to brink of war"
 CAT_TEXT_LIST = list('The cat is sitting in the window looking out at the street'.split(' '))
@@ -56,7 +56,7 @@ class TestClean(unittest.TestCase):
 
     def test_simply_pos_tag_proper_noun(self):
         """
-
+        Provides simple_pos_tag() the proper noun Penn Treebank part of speech (POS) tag.
         """
         proper_noun_tag = 'NNP'
         expected_tag = wordnet_corpus.NOUN
@@ -64,36 +64,54 @@ class TestClean(unittest.TestCase):
         self.assertEqual(expected_tag, result)
 
     def test_simply_pos_tag_verb(self):
+        """
+        Provides simple_pos_tag() the verb Penn Treebank part of speech (POS) tag.
+        """
         verb_tag = 'VB'
         expected_tag = wordnet_corpus.VERB
         result = clean.simple_pos_tag(verb_tag)
         self.assertEqual(expected_tag, result)
 
     def test_simply_pos_tag_comparitive_adjective(self):
+        """
+        Provides simple_pos_tag() the comparative adjective Penn Treebank part of speech (POS) tag.
+        """
         proper_noun_tag = 'JJR'
         expected_tag = wordnet_corpus.ADJ
         result = clean.simple_pos_tag(proper_noun_tag)
         self.assertEqual(expected_tag, result)
 
     def test_simply_pos_tag_proper_adverb(self):
+        """
+        Provides simple_pos_tag() the adverb Penn Treebank part of speech (POS) tag.
+        """
         proper_noun_tag = 'RB'
         expected_tag = wordnet_corpus.ADV
         result = clean.simple_pos_tag(proper_noun_tag)
         self.assertEqual(expected_tag, result)
 
     def test_simply_pos_tag_proper_determiner(self):
+        """
+        Provides simple_pos_tag() the determiner Penn Treebank part of speech (POS) tag.
+        """
         proper_noun_tag = 'DT'
         expected_tag = None
         result = clean.simple_pos_tag(proper_noun_tag)
         self.assertEqual(expected_tag, result)
 
     def test_wordnet_lemmatize_basic(self):
+        """
+        Provides a basic sentence to be lemmatized
+        """
         text = CAT_TEXT_LIST
         expected_text = list('The cat be sit in the window look out at the street'.split(' '))
         result = clean.word_net_lemmatize(text)
         self.assertEqual(result, expected_text)
 
     def test_wordnet_lemmatize_simple_headline(self):
+        """
+        Provides a headline to be lemmatized
+        """
         text = list(GEORGIA_HEADLINE_LC.split(' '))
         expected_text = list("georgia down two russian warplane as country move to brink of war"
                              .split(' '))
