@@ -9,6 +9,7 @@ import nltk.stem.porter
 import nltk.corpus.reader.wordnet as wordnet_corpus
 
 nltk.download('averaged_perceptron_tagger')
+nltk.download('wordnet')
 
 
 def sklearn_tokenize(text):
