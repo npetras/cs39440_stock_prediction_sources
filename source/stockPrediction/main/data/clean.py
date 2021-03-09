@@ -4,6 +4,7 @@ Contains all functions used to clean the data/remove noise from the data.
 
 import sklearn.feature_extraction.text as feature_extraction
 import nltk
+from nltk.tokenize import treebank
 import nltk.stem.wordnet
 import nltk.stem.porter
 # pylint: disable=E0611
@@ -21,6 +22,11 @@ def sklearn_tokenize(text):
     return sklearn_tokenizer(text)
 
 
+def treebank_detokenize(tokenized_text):
+    detokenizer = treebank.TreebankWordDetokenizer()
+    return detokenizer.detokenize(tokenized_text)
+
+
 def porter_stem(tokenized_text):
     """
     Stems the tokenized_text using the Porter Stemmer
@@ -36,6 +42,23 @@ def porter_stem(tokenized_text):
         stemmed_tokenized_text.append(stemmed_word)
 
     return stemmed_tokenized_text
+
+
+def porter_stem_list(text_list):
+    """
+    Stems the text list using the Porter Stemmer
+    :param text_list: List of text to be stemmed
+    :return: The 'text_list' with porter stemming applied
+    """
+    stemmed_list = []
+
+    for text in text_list:
+        tokenized_text = sklearn_tokenize(text)
+        stemmed_text = porter_stem(tokenized_text)
+        detokenized_stemmed_text = treebank_detokenize(stemmed_text)
+        stemmed_list.append(detokenized_stemmed_text)
+
+    return stemmed_list
 
 
 def simple_pos_tag(pos_tag):
@@ -58,7 +81,7 @@ def simple_pos_tag(pos_tag):
     return simplified_pos_tag
 
 
-def word_net_lemmatize(tokenized_text):
+def wordnet_lemmatize(tokenized_text):
     """
     Lemmatizes the tokenized_text using the NLTK WordNet lemmatizer
     :param tokenized_text: list of tokens
@@ -76,3 +99,19 @@ def word_net_lemmatize(tokenized_text):
             lemmatized_tokens.append(token)
 
     return lemmatized_tokens
+
+
+def wordnet_lemmatize_list(text_list):
+    """Lemmatizes the text list using the Wordnet Lemmatizer
+    :param text_list: list of text to be lemmatized
+    :return: the text_list with wordnet lemmatisation applied
+    """
+    lemmatized_list = []
+
+    for text in text_list:
+        tokenized_text = sklearn_tokenize(text)
+        lemmatized_text = wordnet_lemmatize(tokenized_text)
+        detokenized_lemmatized_text = treebank_detokenize(lemmatized_text)
+        lemmatized_list.append(detokenized_lemmatized_text)
+
+    return lemmatized_list

@@ -7,7 +7,9 @@ import unittest
 import nltk.corpus.reader.wordnet as wordnet_corpus
 from main.data import clean
 
-GEORGIA_HEADLINE_LC = "georgia downs two russian warplanes as countries move to brink of war"
+GEORGIA_HEADLINE_LC = 'georgia downs two russian warplanes as countries move to brink of war'
+GEORGIA_HEADLINE_STEMMED = 'georgia down two russian warplan as countri move to brink of war'
+GEORGIA_HEADLINE_LEMMATIZED = "georgia down two russian warplane as country move to brink of war"
 CAT_TEXT_LIST = list('The cat is sitting in the window looking out at the street'.split(' '))
 
 
@@ -35,6 +37,17 @@ class TestClean(unittest.TestCase):
         resulting_list = clean.sklearn_tokenize(text)
         self.assertEqual(expected_list, resulting_list)
 
+    def test_treebank_detokenize(self):
+        """
+        Provides a tokenized list, with no punctuation as is expected after the sklearn tokenizer is
+        run on the text
+        """
+        tokenized_text = ['Hello', 'didn', 'see', 'you', 'at', 'the', 'talk', 'were', 'you',
+                          'there']
+        expected_text = 'Hello didn see you at the talk were you there'
+        resulting_text = clean.treebank_detokenize(tokenized_text)
+        self.assertEqual(expected_text, resulting_text)
+
     def test_porter_stem_basic(self):
         """
         Basic string provided to porter_stem()
@@ -49,10 +62,26 @@ class TestClean(unittest.TestCase):
         Headline string from DJIA dataset provided to porter_stem()
         """
         text = list(GEORGIA_HEADLINE_LC.split(' '))
-        expected_text = list('georgia down two russian warplan as countri move to brink of war'
-                             .split(' '))
+        expected_text = list(GEORGIA_HEADLINE_STEMMED.split(' '))
         result = clean.porter_stem(text)
         self.assertEqual(expected_text, result)
+
+    def test_porter_stem_list_headlines(self):
+        """
+        Provides a list of untokenized headlines
+        """
+        headline1 = GEORGIA_HEADLINE_LC
+        headline2 = 'BREAKING Musharraf to be impeached'
+        headline3 = 'Russia Today Columns of troops roll into South Ossetia footage from ' \
+                    'fighting YouTube'
+        text_list = [headline1, headline2, headline3]
+        expected_headline1 = GEORGIA_HEADLINE_STEMMED
+        expected_headline2 = 'break musharraf to be impeach'
+        expected_headline3 = 'Russia Today Column of troop roll into South Ossetia footag ' \
+                             'from fight YouTub'.lower()
+        expected_list = [expected_headline1, expected_headline2, expected_headline3]
+        resulting_list = clean.porter_stem_list(text_list)
+        self.assertEqual(expected_list, resulting_list)
 
     def test_simply_pos_tag_proper_noun(self):
         """
@@ -105,7 +134,7 @@ class TestClean(unittest.TestCase):
         """
         text = CAT_TEXT_LIST
         expected_text = list('The cat be sit in the window look out at the street'.split(' '))
-        result = clean.word_net_lemmatize(text)
+        result = clean.wordnet_lemmatize(text)
         self.assertEqual(result, expected_text)
 
     def test_wordnet_lemmatize_simple_headline(self):
@@ -113,10 +142,26 @@ class TestClean(unittest.TestCase):
         Provides a headline to be lemmatized
         """
         text = list(GEORGIA_HEADLINE_LC.split(' '))
-        expected_text = list("georgia down two russian warplane as country move to brink of war"
-                             .split(' '))
-        result = clean.word_net_lemmatize(text)
+        expected_text = list(GEORGIA_HEADLINE_LEMMATIZED.split(' '))
+        result = clean.wordnet_lemmatize(text)
         self.assertEqual(result, expected_text)
+
+    def test_word_lemmatize_list(self):
+        """
+        Provides a list of untokenized headlines
+        """
+        headline1 = GEORGIA_HEADLINE_LC
+        headline2 = 'BREAKING Musharraf to be impeached'
+        headline3 = 'Russia Today Columns of troops roll into South Ossetia footage from ' \
+                    'fighting YouTube'
+        text_list = [headline1, headline2, headline3]
+        expected_headline1 = GEORGIA_HEADLINE_LEMMATIZED
+        expected_headline2 = 'BREAKING Musharraf to be impeach'
+        expected_headline3 = 'Russia Today Columns of troop roll into South Ossetia footage ' \
+                             'from fight YouTube'
+        expected_list = [expected_headline1, expected_headline2, expected_headline3]
+        resulting_list = clean.wordnet_lemmatize_list(text_list)
+        self.assertEqual(expected_list, resulting_list)
 
 
 if __name__ == '__main__':
