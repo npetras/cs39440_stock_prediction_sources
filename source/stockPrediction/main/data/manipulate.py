@@ -13,7 +13,7 @@ def combine_strings(string_list):
     """
     combined_string = ''
     for string in string_list:
-        combined_string += string + ' '
+        combined_string += str(string) + ' '
     return combined_string.strip()
 
 
