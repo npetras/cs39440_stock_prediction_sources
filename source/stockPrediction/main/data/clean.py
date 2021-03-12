@@ -23,6 +23,11 @@ def sklearn_tokenize(text):
 
 
 def treebank_detokenize(tokenized_text):
+    """
+    Detokenized text using the TreebankWordDetokenizer
+    :param tokenized_text: Text to be detokenized
+    :return: Detokenized 'tokenized_text' (string)
+    """
     detokenizer = treebank.TreebankWordDetokenizer()
     return detokenizer.detokenize(tokenized_text)
 
