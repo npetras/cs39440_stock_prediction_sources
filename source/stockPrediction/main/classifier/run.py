@@ -1,5 +1,5 @@
 """
-Running of machine learning model
+Running of machine learning classifier
 """
 
 from nltk.corpus import stopwords
@@ -44,8 +44,8 @@ def with_vectorizer(train_data, train_labels, test_data, test_labels,
 
     :return: None
     """
-    processed_train_data = []
-    processed_test_data = []
+    processed_train_data = train_data
+    processed_test_data = test_data
 
     if stemming and lemmatization:
         raise Exception('Cannot use both stemming and lemmatization')
@@ -97,9 +97,9 @@ def create_count_vectorizer(frequency_removal, stop_words):
 
 def print_coefficients(model, word_features):
     """
-    Prints the top features (co-efficients) of the model provided
-    :param model: The model for which the coefficients are required
-    :param word_features: All of the word features for the 'model'
+    Prints the top features (co-efficients) of the classifier provided
+    :param model: The classifier for which the coefficients are required
+    :param word_features: All of the word features for the 'classifier'
     :return: None
     """
     coefficients = model.coef_.tolist()[0]
