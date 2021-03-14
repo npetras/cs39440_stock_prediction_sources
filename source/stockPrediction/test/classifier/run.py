@@ -1,8 +1,15 @@
+"""
+Test module for main.classifier.run
+"""
+
 import unittest
 from main.classifier import run
 
 
 class TestRun(unittest.TestCase):
+    """
+    Test class for main.classifier.run
+    """
 
     def test_with_vectorizer_error(self):
         """
