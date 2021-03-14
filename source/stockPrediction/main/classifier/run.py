@@ -16,9 +16,15 @@ STOPWORDS_LIST = stopwords.words('english')
 
 # pylint: disable=R0913,R0914
 # Arguments, and variables should be reduced in future
-def with_vectorizer(train_data, train_labels, test_data, test_labels,
-                    classifier=naive_bayes.MultinomialNB(), stemming=False,
-                    lemmatization=False, stop_words=False, frequency_removal=False):
+def with_vectorizer(train_data,
+                    train_labels,
+                    test_data,
+                    test_labels,
+                    classifier=naive_bayes.MultinomialNB(),
+                    stemming=False,
+                    lemmatization=False,
+                    stop_words=False,
+                    frequency_removal=False):
     """
     Runs a classifier on training and test data provided, using a CountVectorizer (bag of words)
     approach.
@@ -83,13 +89,13 @@ def create_count_vectorizer(frequency_removal, stop_words):
         count_vectorizer = feature_extraction.CountVectorizer(
             stop_words=stopwords.words('english'),
             max_df=MAX_FREQ_CAP,
-            min_df=MIN_FREQ_CAP
-        )
+            min_df=MIN_FREQ_CAP)
     elif stop_words:
-        count_vectorizer = feature_extraction.CountVectorizer(stop_words=STOPWORDS_LIST)
+        count_vectorizer = feature_extraction.CountVectorizer(
+            stop_words=STOPWORDS_LIST)
     elif frequency_removal:
-        count_vectorizer = feature_extraction.CountVectorizer(max_df=MAX_FREQ_CAP,
-                                                              min_df=MIN_FREQ_CAP)
+        count_vectorizer = feature_extraction.CountVectorizer(
+            max_df=MAX_FREQ_CAP, min_df=MIN_FREQ_CAP)
     else:
         count_vectorizer = feature_extraction.CountVectorizer()
     return count_vectorizer
@@ -103,9 +109,12 @@ def print_coefficients(model, word_features):
     :return: None
     """
     coefficients = model.coef_.tolist()[0]
-    feature_weighting = pd.DataFrame({'Word': word_features, 'Coefficient': coefficients})
-    sorted_feature_weighting = feature_weighting.sort_values(['Coefficient', 'Word'],
-                                                             ascending=[0, 1])
+    feature_weighting = pd.DataFrame({
+        'Word': word_features,
+        'Coefficient': coefficients
+    })
+    sorted_feature_weighting = feature_weighting.sort_values(
+        ['Coefficient', 'Word'], ascending=[0, 1])
     print("Top 10 positive features:")
     print(sorted_feature_weighting.head(10))
     print("Top 10 negative features:")

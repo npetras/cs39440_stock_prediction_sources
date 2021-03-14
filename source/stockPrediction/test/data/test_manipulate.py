@@ -9,6 +9,7 @@ class TestManipulate(unittest.TestCase):
     """
     Test class for main.data.manipulate functions
     """
+
     def test_combine_string(self):
         """
         Provides a list a basic list of strings to combine_string()
@@ -22,8 +23,10 @@ class TestManipulate(unittest.TestCase):
         """
         Provides a list of expected tokens, if the sklearn_tokenize() was run on a piece of text.
         """
-        tokenized_text = ['Hello', 'didn', 'see', 'you', 'at', 'the', 'talk', 'were', 'you',
-                          'there']
+        tokenized_text = [
+            'Hello', 'didn', 'see', 'you', 'at', 'the', 'talk', 'were', 'you',
+            'there'
+        ]
         detokenized_text = 'Hello didn see you at the talk were you there'
         result = manipulate.treebank_detokenize(tokenized_text)
         self.assertEqual(result, detokenized_text)
@@ -34,8 +37,11 @@ class TestManipulate(unittest.TestCase):
         sklearn_tokenize()
         :return:
         """
-        tokenized_text = ['Rice', 'Gives', 'Green', 'Light', 'for', 'Israel', 'to', 'Attack',
-                          'Iran', 'Says', 'has', 'no', 'veto', 'over', 'Israeli', 'military', 'ops']
+        tokenized_text = [
+            'Rice', 'Gives', 'Green', 'Light', 'for', 'Israel', 'to', 'Attack',
+            'Iran', 'Says', 'has', 'no', 'veto', 'over', 'Israeli', 'military',
+            'ops'
+        ]
         detokenized_text = 'Rice Gives Green Light for Israel to Attack Iran Says has no veto ' \
                            'over Israeli military ops'
         result = manipulate.treebank_detokenize(tokenized_text)

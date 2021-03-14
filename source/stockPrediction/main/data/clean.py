@@ -98,7 +98,8 @@ def wordnet_lemmatize(tokenized_text):
     for token, pos in nltk.pos_tag(tokenized_text):
         simplified_pos_tag = simple_pos_tag(pos)
         if simplified_pos_tag is not None:
-            lemmatized_token = wordnet_lemmatizer.lemmatize(token, simplified_pos_tag)
+            lemmatized_token = wordnet_lemmatizer.lemmatize(
+                token, simplified_pos_tag)
             lemmatized_tokens.append(lemmatized_token)
         else:
             lemmatized_tokens.append(token)

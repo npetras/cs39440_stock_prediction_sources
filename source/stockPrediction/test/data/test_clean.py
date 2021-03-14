@@ -10,7 +10,8 @@ from main.data import clean
 GEORGIA_HEADLINE_LC = 'georgia downs two russian warplanes as countries move to brink of war'
 GEORGIA_HEADLINE_STEMMED = 'georgia down two russian warplan as countri move to brink of war'
 GEORGIA_HEADLINE_LEMMATIZED = "georgia down two russian warplane as country move to brink of war"
-CAT_TEXT_LIST = list('The cat is sitting in the window looking out at the street'.split(' '))
+CAT_TEXT_LIST = list(
+    'The cat is sitting in the window looking out at the street'.split(' '))
 
 
 class TestClean(unittest.TestCase):
@@ -33,7 +34,10 @@ class TestClean(unittest.TestCase):
         one-letter word (i)
         """
         text = '''Hello i didn't see you (at the talk), were you there?'''
-        expected_list = ['Hello', 'didn', 'see', 'you', 'at', 'the', 'talk', 'were', 'you', 'there']
+        expected_list = [
+            'Hello', 'didn', 'see', 'you', 'at', 'the', 'talk', 'were', 'you',
+            'there'
+        ]
         resulting_list = clean.sklearn_tokenize(text)
         self.assertEqual(expected_list, resulting_list)
 
@@ -42,8 +46,10 @@ class TestClean(unittest.TestCase):
         Provides a tokenized list, with no punctuation as is expected after the sklearn tokenizer is
         run on the text
         """
-        tokenized_text = ['Hello', 'didn', 'see', 'you', 'at', 'the', 'talk', 'were', 'you',
-                          'there']
+        tokenized_text = [
+            'Hello', 'didn', 'see', 'you', 'at', 'the', 'talk', 'were', 'you',
+            'there'
+        ]
         expected_text = 'Hello didn see you at the talk were you there'
         resulting_text = clean.treebank_detokenize(tokenized_text)
         self.assertEqual(expected_text, resulting_text)
@@ -53,7 +59,8 @@ class TestClean(unittest.TestCase):
         Basic string provided to porter_stem()
         """
         text = CAT_TEXT_LIST
-        expected_text = list('the cat is sit in the window look out at the street'.split(' '))
+        expected_text = list(
+            'the cat is sit in the window look out at the street'.split(' '))
         result = clean.porter_stem(text)
         self.assertEqual(expected_text, result)
 
@@ -79,7 +86,9 @@ class TestClean(unittest.TestCase):
         expected_headline2 = 'break musharraf to be impeach'
         expected_headline3 = 'Russia Today Column of troop roll into South Ossetia footag ' \
                              'from fight YouTub'.lower()
-        expected_list = [expected_headline1, expected_headline2, expected_headline3]
+        expected_list = [
+            expected_headline1, expected_headline2, expected_headline3
+        ]
         resulting_list = clean.porter_stem_list(text_list)
         self.assertEqual(expected_list, resulting_list)
 
@@ -133,7 +142,8 @@ class TestClean(unittest.TestCase):
         Provides a basic sentence to be lemmatized
         """
         text = CAT_TEXT_LIST
-        expected_text = list('The cat be sit in the window look out at the street'.split(' '))
+        expected_text = list(
+            'The cat be sit in the window look out at the street'.split(' '))
         result = clean.wordnet_lemmatize(text)
         self.assertEqual(result, expected_text)
 
@@ -159,7 +169,9 @@ class TestClean(unittest.TestCase):
         expected_headline2 = 'BREAKING Musharraf to be impeach'
         expected_headline3 = 'Russia Today Columns of troop roll into South Ossetia footage ' \
                              'from fight YouTube'
-        expected_list = [expected_headline1, expected_headline2, expected_headline3]
+        expected_list = [
+            expected_headline1, expected_headline2, expected_headline3
+        ]
         resulting_list = clean.wordnet_lemmatize_list(text_list)
         self.assertEqual(expected_list, resulting_list)
 
