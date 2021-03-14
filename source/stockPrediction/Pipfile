@@ -5,6 +5,9 @@ name = "pypi"
 
 [packages]
 pylint = "*"
+scikit-learn = "*"
+nltk = "*"
+pandas = "*"
 
 [dev-packages]
 

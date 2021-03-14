@@ -1,0 +1,2 @@
+pylint main
+pylint test
