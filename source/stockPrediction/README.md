@@ -13,7 +13,7 @@ python -c "import nltk; nltk.download('wordnet'); nltk.download('averaged_percep
 ```
 
 ## Method Two - pipenv
-If you install pipenv using the following pip command:
+If you install pipenv using the following pip command, after you have already installed python and pip:
 ```
 pip install pipenv
 ```
