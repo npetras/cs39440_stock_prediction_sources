@@ -1,10 +1,13 @@
 """
-Running of machine learning classifier
+Running of machine learning classifier.
+Methods are split by the type of Text Representation being used.
 """
 
 from nltk.corpus import stopwords
 import sklearn.feature_extraction.text as feature_extraction
 from sklearn import naive_bayes
+import sklearn.pipeline
+import sklearn.model_selection
 import pandas as pd
 
 from main.data import clean
@@ -120,3 +123,32 @@ def print_coefficients(model, word_features):
     print("Top 10 negative features:")
     print(sorted_feature_weighting.tail(10))
     print()
+
+
+def with_vectorizer_cv(data,
+                       labels,
+                       classifier=naive_bayes.MultinomialNB(),
+                       stemming=False,
+                       lemmatization=False,
+                       stop_words=False,
+                       frequency_removal=False):
+    """
+    Uses cross validation
+    :return:
+    """
+    processed_data = data
+
+    if stemming and lemmatization:
+        raise Exception('Cannot use both stemming and lemmatization')
+
+    if stemming:
+        processed_data = clean.porter_stem_list(data)
+    elif lemmatization:
+        processed_data = clean.wordnet_lemmatize_list(data)
+
+    count_vectorizer = create_count_vectorizer(frequency_removal, stop_words)
+    pipeline = sklearn.pipeline.Pipeline([('transformer', count_vectorizer),
+                                          ('estimator', classifier)])
+    scores = sklearn.model_selection.cross_val_score(pipeline, processed_data, labels, cv=5)
+    print(f"{classifier.__class__.__name__} Cross Validation Mean Accuracy: {scores.mean()}\n")
+    print(f"{classifier.__class__.__name__} Cross Validation Standard Deviation: {scores.std()}\n")
