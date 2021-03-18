@@ -5,7 +5,8 @@ Methods are split by the type of Text Representation being used.
 
 from nltk.corpus import stopwords
 import sklearn.feature_extraction.text as feature_extraction
-from sklearn import naive_bayes
+import sklearn.naive_bayes
+import sklearn.linear_model
 import sklearn.pipeline
 import sklearn.model_selection
 import pandas as pd
@@ -23,7 +24,7 @@ def with_vectorizer(train_data,
                     train_labels,
                     test_data,
                     test_labels,
-                    classifier=naive_bayes.MultinomialNB(),
+                    classifier=sklearn.naive_bayes.MultinomialNB(),
                     stemming=False,
                     lemmatization=False,
                     stop_words=False,
@@ -76,8 +77,14 @@ def with_vectorizer(train_data,
     print(f"{classifier.__class__.__name__} Accuracy: {score}\n")
 
     # coefficients, top features
+    feature_probabities = None
+    if type(classifier) is sklearn.naive_bayes.MultinomialNB:
+        feature_probabities = model.feature_log_prob_.tolist()[1]
+    elif type(classifier) is sklearn.linear_model.LogisticRegression:
+        feature_probabities = model.coef_.tolist()[0]
+
     word_features = count_vectorizer.get_feature_names()
-    print_coefficients(model, word_features)
+    print_top_features(feature_probabities, word_features)
 
 
 def create_count_vectorizer(frequency_removal, stop_words):
@@ -104,20 +111,19 @@ def create_count_vectorizer(frequency_removal, stop_words):
     return count_vectorizer
 
 
-def print_coefficients(model, word_features):
+def print_top_features(feature_weightings, word_features):
     """
-    Prints the top features (co-efficients) of the classifier provided
-    :param model: The classifier for which the coefficients are required
+    Prints the top positive and negative feature for the classifier. Only for binary classification.
+    :param feature_weightings: How predictive each feature is for the positive label
     :param word_features: All of the word features for the 'classifier'
     :return: None
     """
-    coefficients = model.coef_.tolist()[0]
     feature_weighting = pd.DataFrame({
         'Word': word_features,
-        'Coefficient': coefficients
+        'Feature Weighting': feature_weightings
     })
     sorted_feature_weighting = feature_weighting.sort_values(
-        ['Coefficient', 'Word'], ascending=[0, 1])
+        ['Feature Weighting', 'Word'], ascending=[0, 1])
     print("Top 10 positive features:")
     print(sorted_feature_weighting.head(10))
     print("Top 10 negative features:")
@@ -127,7 +133,7 @@ def print_coefficients(model, word_features):
 
 def with_vectorizer_cv(data,
                        labels,
-                       classifier=naive_bayes.MultinomialNB(),
+                       classifier=sklearn.naive_bayes.MultinomialNB(),
                        stemming=False,
                        lemmatization=False,
                        stop_words=False,
