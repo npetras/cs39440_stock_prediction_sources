@@ -157,9 +157,12 @@ def with_vectorizer_cv(data,
                                           ('estimator', classifier)])
     # scores = sklearn.model_selection.cross_val_score(pipeline, processed_data, labels, cv=5)
     scoring_metrics = ['accuracy', 'f1']
-    model_output = sklearn.model_selection.cross_validate(estimator=pipeline, X=processed_data,
-                                                          y=labels, return_train_score=True,
-                                                          scoring=scoring_metrics, return_estimator=True)
+    model_output = sklearn.model_selection.cross_validate(
+        estimator=pipeline,
+        X=processed_data,
+        y=labels,
+        return_train_score=True,
+        scoring=scoring_metrics)
     print(f"{classifier.__class__.__name__} CV Test Accuracy Mean: "
           f"{model_output['test_accuracy'].mean():{6}.{4}}")
     print(f"{classifier.__class__.__name__} CV Test Accuracy Deviation: "

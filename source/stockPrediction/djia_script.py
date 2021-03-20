@@ -63,68 +63,50 @@ if __name__ == '__main__':
     #     stemming=True,
     #     frequency_removal=True)
 
-    print(
-        "MultinomialNB -- CV - Count Vectorizer"
-    )
+    print("MultinomialNB -- CV - Count Vectorizer")
     run.with_vectorizer_cv(data,
                            djia_df['Label'],
                            classifier=naive_bayes.MultinomialNB())
-    print(
-        "MultinomialNB -- CV - Stopwords"
-    )
+    print("MultinomialNB -- CV - Stopwords")
     run.with_vectorizer_cv(data,
                            djia_df['Label'],
                            classifier=naive_bayes.MultinomialNB(),
                            stop_words=True)
-    print(
-        "MultinomialNB -- CV - Frequency Removal"
-    )
+    print("MultinomialNB -- CV - Frequency Removal")
     run.with_vectorizer_cv(data,
                            djia_df['Label'],
                            classifier=naive_bayes.MultinomialNB(),
                            frequency_removal=True)
-    print(
-        "MultinomialNB -- CV - Stemming"
-    )
+    print("MultinomialNB -- CV - Stemming")
     run.with_vectorizer_cv(data=data,
                            labels=djia_df['Label'],
                            classifier=naive_bayes.MultinomialNB(),
                            stemming=True)
-    print(
-        "MultinomialNB -- CV - Stemming & Stopwords"
-    )
+    print("MultinomialNB -- CV - Stemming & Stopwords")
     run.with_vectorizer_cv(data=data,
                            labels=djia_df['Label'],
                            classifier=naive_bayes.MultinomialNB(),
                            stemming=True,
                            stop_words=True)
-    print(
-        "MultinomialNB -- CV -- Stemming, Stopword & Frequency Removal"
-    )
+    print("MultinomialNB -- CV -- Stemming, Stopword & Frequency Removal")
     run.with_vectorizer_cv(data=data,
                            labels=djia_df['Label'],
                            classifier=naive_bayes.MultinomialNB(),
                            stop_words=True,
                            stemming=True,
                            frequency_removal=True)
-    print(
-        "MultinomialNB -- CV -- Lemmatisation"
-    )
+    print("MultinomialNB -- CV -- Lemmatisation")
     run.with_vectorizer_cv(data=data,
                            labels=djia_df['Label'],
                            classifier=naive_bayes.MultinomialNB(),
                            lemmatization=True)
-    print(
-        "MultinomialNB -- CV -- Lemmatisation & Stopword"
-    )
+    print("MultinomialNB -- CV -- Lemmatisation & Stopword")
     run.with_vectorizer_cv(data=data,
                            labels=djia_df['Label'],
                            classifier=naive_bayes.MultinomialNB(),
                            lemmatization=True,
                            stop_words=True)
-    print(
-        "MultinomialNB -- CV -- Lemmatisation, Stopword & Frequency Removal"
-    )
+    print("MultinomialNB -- CV -- Lemmatisation, Stopword & Frequency Removal")
     run.with_vectorizer_cv(data=data,
                            labels=djia_df['Label'],
                            classifier=naive_bayes.MultinomialNB(),
@@ -132,23 +114,20 @@ if __name__ == '__main__':
                            lemmatization=True,
                            frequency_removal=True)
 
-    print(
-        "LogisticRegression -- CV -- Count Vectorizer")
+    print("LogisticRegression -- CV -- Count Vectorizer")
     run.with_vectorizer_cv(
         data,
         djia_df['Label'],
         classifier=linear_model.LogisticRegression(max_iter=ITERATION_NUM))
 
-    print(
-        "LogisticRegression -- CV -- Stopwords")
+    print("LogisticRegression -- CV -- Stopwords")
     run.with_vectorizer_cv(
         data,
         djia_df['Label'],
         classifier=linear_model.LogisticRegression(max_iter=ITERATION_NUM),
         stop_words=True)
 
-    print(
-        "LogisticRegression -- CV -- Frequency Removal")
+    print("LogisticRegression -- CV -- Frequency Removal")
     run.with_vectorizer_cv(
         data,
         djia_df['Label'],
