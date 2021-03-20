@@ -139,8 +139,21 @@ def with_vectorizer_cv(data,
                        stop_words=False,
                        frequency_removal=False):
     """
-    Uses cross validation
-    :return:
+    Runs the classifier provided on the data provided, with 5 KFold Cross Validation, printing
+    the classifier's accuracy and F1 score for both the training and test data - mean scores and
+    standard deviation for each.
+
+    :param data: data to be used for as train and test data in cross validation
+    :param labels: the labels for the data provided
+    :param classifier: the classifier to be used, expects: MultinomialNB and LogisticRegression only
+    currently
+    :param stemming: Should stemming be used or not,  mutually exclusive with lemmatization -
+    expect True/False
+    :param lemmatization: Should lemmatisation be used or not, mutually exclusive with stemming
+     - expect True/False
+    :param stop_words: Should stopwords be removed based on a list - expect True/False
+    :param frequency_removal: Should the words that occur in more than 97% of documents, or in less
+    than 3% of documents - expect True/False
     """
     processed_data = data
 
@@ -179,4 +192,3 @@ def with_vectorizer_cv(data,
           f"{model_output['train_f1'].mean():{6}.{4}}")
     print(f"{classifier.__class__.__name__} CV Train F1 Deviation: "
           f"{model_output['train_f1'].std():{6}.{4}}\n")
-
