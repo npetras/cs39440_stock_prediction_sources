@@ -1,10 +1,11 @@
 """
 Running of machine learning classifier.
-Methods are split by the type of Text Representation being used.
+Methods are split by the type of Text Representation being used and the train/test split being
+used.
 """
 
 from nltk.corpus import stopwords
-import sklearn.feature_extraction.text as feature_extraction
+import sklearn.feature_extraction.text
 import sklearn.naive_bayes
 import sklearn.linear_model
 import sklearn.pipeline
@@ -96,18 +97,18 @@ def create_count_vectorizer(frequency_removal, stop_words):
     :return: The specified CountVectorizer object
     """
     if stop_words and frequency_removal:
-        count_vectorizer = feature_extraction.CountVectorizer(
+        count_vectorizer = sklearn.feature_extraction.text.CountVectorizer(
             stop_words=stopwords.words('english'),
             max_df=MAX_FREQ_CAP,
             min_df=MIN_FREQ_CAP)
     elif stop_words:
-        count_vectorizer = feature_extraction.CountVectorizer(
+        count_vectorizer = sklearn.feature_extraction.text.CountVectorizer(
             stop_words=STOPWORDS_LIST)
     elif frequency_removal:
-        count_vectorizer = feature_extraction.CountVectorizer(
+        count_vectorizer = sklearn.feature_extraction.text.CountVectorizer(
             max_df=MAX_FREQ_CAP, min_df=MIN_FREQ_CAP)
     else:
-        count_vectorizer = feature_extraction.CountVectorizer()
+        count_vectorizer = sklearn.feature_extraction.text.CountVectorizer()
     return count_vectorizer
 
 
