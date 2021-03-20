@@ -155,6 +155,25 @@ def with_vectorizer_cv(data,
     count_vectorizer = create_count_vectorizer(frequency_removal, stop_words)
     pipeline = sklearn.pipeline.Pipeline([('transformer', count_vectorizer),
                                           ('estimator', classifier)])
-    scores = sklearn.model_selection.cross_val_score(pipeline, processed_data, labels, cv=5)
-    print(f"{classifier.__class__.__name__} Cross Validation Mean Accuracy: {scores.mean()}\n")
-    print(f"{classifier.__class__.__name__} Cross Validation Standard Deviation: {scores.std()}\n")
+    # scores = sklearn.model_selection.cross_val_score(pipeline, processed_data, labels, cv=5)
+    scoring_metrics = ['accuracy', 'f1']
+    model_output = sklearn.model_selection.cross_validate(estimator=pipeline, X=processed_data,
+                                                          y=labels, return_train_score=True,
+                                                          scoring=scoring_metrics, return_estimator=True)
+    print(f"{classifier.__class__.__name__} CV Test Accuracy Mean: "
+          f"{model_output['test_accuracy'].mean():{6}.{4}}")
+    print(f"{classifier.__class__.__name__} CV Test Accuracy Deviation: "
+          f"{model_output['test_accuracy'].std():{6}.{4}}")
+    print(f"{classifier.__class__.__name__} CV Test F1 Mean: "
+          f"{model_output['test_f1'].mean():{6}.{4}}")
+    print(f"{classifier.__class__.__name__} CV Test F1 Deviation: "
+          f"{model_output['test_f1'].std():{6}.{4}}")
+    print(f"{classifier.__class__.__name__} CV Train Accuracy Mean: "
+          f"{model_output['train_accuracy'].mean():{6}.{4}}")
+    print(f"{classifier.__class__.__name__} CV Train Accuracy Deviation: "
+          f"{model_output['train_accuracy'].std():{6}.{4}}")
+    print(f"{classifier.__class__.__name__} CV Train F1 Mean: "
+          f"{model_output['train_f1'].mean():{6}.{4}}")
+    print(f"{classifier.__class__.__name__} CV Train F1 Deviation: "
+          f"{model_output['train_f1'].std():{6}.{4}}\n")
+
