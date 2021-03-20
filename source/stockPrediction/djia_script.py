@@ -149,9 +149,7 @@ if __name__ == '__main__':
         stemming=True,
         stop_words=True)
 
-    print(
-        "LogisticRegression -- CV -- Stemming, Stopword & Frequency Removal"
-    )
+    print("LogisticRegression -- CV -- Stemming, Stopword & Frequency Removal")
     run.with_vectorizer_cv(
         data=data,
         labels=djia_df['Label'],
@@ -160,17 +158,13 @@ if __name__ == '__main__':
         stemming=True,
         frequency_removal=True)
 
-    print(
-        "LogisticRegression -- Lemmatisation"
-    )
+    print("LogisticRegression -- Lemmatisation")
     run.with_vectorizer_cv(
         data=data,
         labels=djia_df['Label'],
         classifier=linear_model.LogisticRegression(max_iter=ITERATION_NUM),
         lemmatization=True)
-    print(
-        "LogisticRegression -- CV -- Lemmatisation & Stopword"
-    )
+    print("LogisticRegression -- CV -- Lemmatisation & Stopword")
     run.with_vectorizer_cv(
         data=data,
         labels=djia_df['Label'],
