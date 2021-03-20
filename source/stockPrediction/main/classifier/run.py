@@ -78,9 +78,9 @@ def with_vectorizer(train_data,
 
     # coefficients, top features
     feature_probabities = None
-    if type(classifier) is sklearn.naive_bayes.MultinomialNB:
+    if isinstance(classifier, sklearn.naive_bayes.MultinomialNB):
         feature_probabities = model.feature_log_prob_.tolist()[1]
-    elif type(classifier) is sklearn.linear_model.LogisticRegression:
+    elif isinstance(classifier, sklearn.linear_model.LogisticRegression):
         feature_probabities = model.coef_.tolist()[0]
 
     word_features = count_vectorizer.get_feature_names()
