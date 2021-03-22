@@ -26,4 +26,12 @@
 
 [Research Questions](01%20Initial%20Research%20Notes%209da9f3104b4a403cbcabf565194b4d0c/Research%20Questions%205d386917eff4456e8d71c97713727217.md)
 
-[Retrospective and Review](01%20Initial%20Research%20Notes%209da9f3104b4a403cbcabf565194b4d0c/Retrospective%20and%20Review%209912995b0bf54acdb1342d3fb2ec9c69.md)
+[Social Media Research Questions & Ideas](01%20Initial%20Research%20Notes%209da9f3104b4a403cbcabf565194b4d0c/Social%20Media%20Research%20Questions%20&%20Ideas%202eeafa32da594f40ae3b9fda43cc4242.md)
+
+[NLP, Sentiment Analysis Experimentation](01%20Initial%20Research%20Notes%209da9f3104b4a403cbcabf565194b4d0c/NLP,%20Sentiment%20Analysis%20Experimentation%20ef578357a85a4b278e0fd1b882a1a4ec.md)
+
+[Data Scraping](01%20Initial%20Research%20Notes%209da9f3104b4a403cbcabf565194b4d0c/Data%20Scraping%207260ac0586a840f3b3a7e260d137b764.md)
+
+[Notes for Meeting with Neil Taylor Regarding Epics, Stories and Tasks](01%20Initial%20Research%20Notes%209da9f3104b4a403cbcabf565194b4d0c/Notes%20for%20Meeting%20with%20Neil%20Taylor%20Regarding%20Epics%2092e457005ca640aa8d524117d018007a.md)
+
+[Review and Retrospective](01%20Initial%20Research%20Notes%209da9f3104b4a403cbcabf565194b4d0c/Review%20and%20Retrospective%209912995b0bf54acdb1342d3fb2ec9c69.md)
