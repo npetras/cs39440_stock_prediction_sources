@@ -1,14 +1,14 @@
 """
-Script that runs models on the DJIA dataset
+Script that runs models on the DJIA dataset.
+Uses bag of words vector as features.
 """
 
 from main.data import load, manipulate
 from main.classifier import run
+import constants
 
 from sklearn import linear_model, naive_bayes
 
-DJIA_DATA_REL_PATH = '../../datasets/existing/dow_jones/Combined_News_DJIA.csv'
-ITERATION_NUM = 500
 
 
 def combine_djia_headlines(data_frame):
@@ -21,7 +21,7 @@ def combine_djia_headlines(data_frame):
 
 
 if __name__ == '__main__':
-    djia_df = load.from_csv(DJIA_DATA_REL_PATH)
+    djia_df = load.from_csv(constants.DJIA_DATA_REL_PATH)
     train_df = djia_df[djia_df['Date'] < '2015-01-01']
     test_df = djia_df[djia_df['Date'] > '2014-12-31']
 
@@ -118,34 +118,34 @@ if __name__ == '__main__':
     run.with_vectorizer_cv(
         data,
         djia_df['Label'],
-        classifier=linear_model.LogisticRegression(max_iter=ITERATION_NUM))
+        classifier=linear_model.LogisticRegression(max_iter=constants.ITERATION_NUM))
 
     print("LogisticRegression -- CV -- Stopwords")
     run.with_vectorizer_cv(
         data,
         djia_df['Label'],
-        classifier=linear_model.LogisticRegression(max_iter=ITERATION_NUM),
+        classifier=linear_model.LogisticRegression(max_iter=constants.ITERATION_NUM),
         stop_words=True)
 
     print("LogisticRegression -- CV -- Frequency Removal")
     run.with_vectorizer_cv(
         data,
         djia_df['Label'],
-        classifier=linear_model.LogisticRegression(max_iter=ITERATION_NUM),
+        classifier=linear_model.LogisticRegression(max_iter=constants.ITERATION_NUM),
         frequency_removal=True)
 
     print("LogisticRegression -- CV -- Stemming")
     run.with_vectorizer_cv(
         data=data,
         labels=djia_df['Label'],
-        classifier=linear_model.LogisticRegression(max_iter=ITERATION_NUM),
+        classifier=linear_model.LogisticRegression(max_iter=constants.ITERATION_NUM),
         stemming=True)
 
     print("LogisticRegression -- CV -- Stemming & Stopwords")
     run.with_vectorizer_cv(
         data=data,
         labels=djia_df['Label'],
-        classifier=linear_model.LogisticRegression(max_iter=ITERATION_NUM),
+        classifier=linear_model.LogisticRegression(max_iter=constants.ITERATION_NUM),
         stemming=True,
         stop_words=True)
 
@@ -153,7 +153,7 @@ if __name__ == '__main__':
     run.with_vectorizer_cv(
         data=data,
         labels=djia_df['Label'],
-        classifier=linear_model.LogisticRegression(max_iter=ITERATION_NUM),
+        classifier=linear_model.LogisticRegression(max_iter=constants.ITERATION_NUM),
         stop_words=True,
         stemming=True,
         frequency_removal=True)
@@ -162,13 +162,13 @@ if __name__ == '__main__':
     run.with_vectorizer_cv(
         data=data,
         labels=djia_df['Label'],
-        classifier=linear_model.LogisticRegression(max_iter=ITERATION_NUM),
+        classifier=linear_model.LogisticRegression(max_iter=constants.ITERATION_NUM),
         lemmatization=True)
     print("LogisticRegression -- CV -- Lemmatisation & Stopword")
     run.with_vectorizer_cv(
         data=data,
         labels=djia_df['Label'],
-        classifier=linear_model.LogisticRegression(max_iter=ITERATION_NUM),
+        classifier=linear_model.LogisticRegression(max_iter=constants.ITERATION_NUM),
         stop_words=True,
         lemmatization=True)
     print(
@@ -177,7 +177,7 @@ if __name__ == '__main__':
     run.with_vectorizer_cv(
         data=data,
         labels=djia_df['Label'],
-        classifier=linear_model.LogisticRegression(max_iter=ITERATION_NUM),
+        classifier=linear_model.LogisticRegression(max_iter=constants.ITERATION_NUM),
         stop_words=True,
         lemmatization=True,
         frequency_removal=True)

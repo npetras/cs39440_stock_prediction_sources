@@ -175,6 +175,13 @@ class TestClean(unittest.TestCase):
         resulting_list = clean.wordnet_lemmatize_list(text_list)
         self.assertEqual(expected_list, resulting_list)
 
+    def test_remove_stopwords(self):
+        tokenized_headline = list(GEORGIA_HEADLINE_LC.split(' '))
+        expected_output = ['georgia', 'downs', 'two', 'russian', 'warplanes', 'countries', 'move',
+                           'brink', 'war']
+        result = clean.remove_stopwords(tokenized_headline)
+        self.assertEqual(result, expected_output)
+
 
 if __name__ == '__main__':
     unittest.main()

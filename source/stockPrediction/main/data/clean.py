@@ -7,6 +7,7 @@ import nltk
 from nltk.tokenize import treebank
 import nltk.stem.wordnet
 import nltk.stem.porter
+from nltk.corpus import stopwords
 # pylint: disable=E0611
 # issue with nltk, or bad error from pylint
 import nltk.corpus.reader.wordnet as wordnet_corpus
@@ -121,3 +122,8 @@ def wordnet_lemmatize_list(text_list):
         lemmatized_list.append(detokenized_lemmatized_text)
 
     return lemmatized_list
+
+
+def remove_stopwords(tokenized_text):
+    stop_words = stopwords.words('english')
+    return [token for token in tokenized_text if (token not in stop_words)]
