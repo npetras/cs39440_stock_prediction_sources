@@ -6,7 +6,7 @@ from main.feature.engineering import sentiment
 from main.data import clean
 from main.data import load
 import constants
-import logging
+import pickle
 
 
 def preprocess_headline(headline):
@@ -49,5 +49,7 @@ if __name__ == '__main__':
 
     headline_sentiment = extract_sentiment_for_each_row(djia_df)
     print(headline_sentiment)
+    with open('sentiment_list.pkl', 'wb') as file:
+        pickle.dump(headline_sentiment, file)
 
 
