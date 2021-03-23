@@ -193,7 +193,7 @@ class TestClean(unittest.TestCase):
         :return:
         """
         tokenized_headline = list(GEORGIA_HEADLINE.split(' '))
-        expected_output = ['georgia', 'downs', 'two', 'russian', 'warplanes', 'countries', 'move',
+        expected_output = ['Georgia', 'downs', 'two', 'Russian', 'warplanes', 'countries', 'move',
                            'brink', 'war']
         result = clean.remove_stopwords(tokenized_headline)
         self.assertEqual(result, expected_output)
