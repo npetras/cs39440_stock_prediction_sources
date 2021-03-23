@@ -1,5 +1,5 @@
 """
-Running of machine learning classifier.
+Running of machine learning modelling.
 Methods are split by the type of Text Representation being used and the train/test split being
 used.
 """
@@ -31,7 +31,7 @@ def with_vectorizer(train_data,
                     stop_words=False,
                     frequency_removal=False):
     """
-    Runs a classifier on training and test data provided, using a CountVectorizer (bag of words)
+    Runs a modelling on training and test data provided, using a CountVectorizer (bag of words)
     approach.
     Stop words are removed based on a list.
     Frequency removal removes words that occur in more than 97% of the documents, and words that
@@ -43,7 +43,7 @@ def with_vectorizer(train_data,
     :param test_data: Test data, without labels - list of strings
     :param test_labels: Labels that are associated with the test_data - list of labels (strings,
     numbers, floats or similar)
-    :param classifier: The classifier that should be used on the data - currently only expect
+    :param classifier: The modelling that should be used on the data - currently only expect
     MultinomialNB and LogisticRegression
     :param stemming: Should stemming be used or not,  mutually exclusive with lemmatization -
     expect True/False
@@ -114,9 +114,9 @@ def create_count_vectorizer(frequency_removal, stop_words):
 
 def print_top_features(feature_weightings, word_features):
     """
-    Prints the top positive and negative feature for the classifier. Only for binary classification.
+    Prints the top positive and negative feature for the modelling. Only for binary classification.
     :param feature_weightings: How predictive each feature is for the positive label
-    :param word_features: All of the word features for the 'classifier'
+    :param word_features: All of the word features for the 'modelling'
     :return: None
     """
     feature_weighting = pd.DataFrame({
@@ -140,13 +140,13 @@ def with_vectorizer_cv(data,
                        stop_words=False,
                        frequency_removal=False):
     """
-    Runs the classifier provided on the data provided, with 5 KFold Cross Validation, printing
-    the classifier's accuracy and F1 score for both the training and test data - mean scores and
+    Runs the modelling provided on the data provided, with 5 KFold Cross Validation, printing
+    the modelling's accuracy and F1 score for both the training and test data - mean scores and
     standard deviation for each.
 
     :param data: data to be used for as train and test data in cross validation
     :param labels: the labels for the data provided
-    :param classifier: the classifier to be used, expects: MultinomialNB and LogisticRegression only
+    :param classifier: the modelling to be used, expects: MultinomialNB and LogisticRegression only
     currently
     :param stemming: Should stemming be used or not,  mutually exclusive with lemmatization -
     expect True/False
@@ -174,6 +174,34 @@ def with_vectorizer_cv(data,
     model_output = sklearn.model_selection.cross_validate(
         estimator=pipeline,
         X=processed_data,
+        y=labels,
+        return_train_score=True,
+        scoring=scoring_metrics)
+    print(f"{classifier.__class__.__name__} CV Test Accuracy Mean: "
+          f"{model_output['test_accuracy'].mean():{6}.{4}}")
+    print(f"{classifier.__class__.__name__} CV Test Accuracy Deviation: "
+          f"{model_output['test_accuracy'].std():{6}.{4}}")
+    print(f"{classifier.__class__.__name__} CV Test F1 Mean: "
+          f"{model_output['test_f1'].mean():{6}.{4}}")
+    print(f"{classifier.__class__.__name__} CV Test F1 Deviation: "
+          f"{model_output['test_f1'].std():{6}.{4}}")
+    print(f"{classifier.__class__.__name__} CV Train Accuracy Mean: "
+          f"{model_output['train_accuracy'].mean():{6}.{4}}")
+    print(f"{classifier.__class__.__name__} CV Train Accuracy Deviation: "
+          f"{model_output['train_accuracy'].std():{6}.{4}}")
+    print(f"{classifier.__class__.__name__} CV Train F1 Mean: "
+          f"{model_output['train_f1'].mean():{6}.{4}}")
+    print(f"{classifier.__class__.__name__} CV Train F1 Deviation: "
+          f"{model_output['train_f1'].std():{6}.{4}}\n")
+
+
+def cross_validation(data, labels, vectorizer, classifier):
+    scoring_metrics = ['accuracy', 'f1']
+    pipeline = sklearn.pipeline.Pipeline([('transformer', vectorizer),
+                                          ('estimator', classifier)])
+    model_output = sklearn.model_selection.cross_validate(
+        estimator=pipeline,
+        X=data,
         y=labels,
         return_train_score=True,
         scoring=scoring_metrics)

@@ -4,7 +4,7 @@ Uses bag of words vector as features.
 """
 
 from main.data import load, manipulate
-from main.classifier import run
+from main.modelling import run
 import constants
 
 from sklearn import linear_model, naive_bayes
