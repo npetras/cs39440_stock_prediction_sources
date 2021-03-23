@@ -126,4 +126,4 @@ def wordnet_lemmatize_list(text_list):
 
 def remove_stopwords(tokenized_text):
     stop_words = stopwords.words('english')
-    return [token for token in tokenized_text if (token not in stop_words)]
+    return [token for token in tokenized_text if (token.lower() not in stop_words)]
