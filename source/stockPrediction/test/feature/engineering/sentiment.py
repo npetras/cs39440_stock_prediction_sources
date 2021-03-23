@@ -2,7 +2,8 @@ import unittest
 from main.feature.engineering import sentiment
 import re
 
-class MyTestCase(unittest.TestCase):
+
+class TestSentiment(unittest.TestCase):
     def test_compound_score(self):
         text = 'Russia Today: Columns of troops roll into South Ossetia; footage from ' \
                'fighting (YouTube)'
