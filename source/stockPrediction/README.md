@@ -9,7 +9,7 @@ pip install -r requirements.txt
 
 The following command is also required to download the necessary data from nltk: wordnet and averaged_perceptron_tagger:
 ```
-python -c "import nltk; nltk.download('wordnet'); nltk.download('averaged_perceptron_tagger')"
+python -c "import nltk; nltk.download('wordnet'); nltk.download('averaged_perceptron_tagger'); nltk.download('stopwords')"
 ```
 
 ## Method Two - pipenv
@@ -25,7 +25,7 @@ pipenv install
 
 Like for method one the following command is also required to download the necessary data from nltk: wordnet and averaged_perceptron_tagger:
 ```
-python -c "import nltk; nltk.download('wordnet'); nltk.download('averaged_perceptron_tagger')"
+python -c "import nltk; nltk.download('wordnet'); nltk.download('averaged_perceptron_tagger'); nltk.download('stopwords')"
 ```
 
 # Packages

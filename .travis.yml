@@ -3,7 +3,7 @@ python:
   - "3.9"
 install:
   - pip install -r source/stockPrediction/requirements.txt
-  - python -c "import nltk; nltk.download('wordnet'); nltk.download('averaged_perceptron_tagger')"
+  - python -c "import nltk; nltk.download('wordnet'); nltk.download('averaged_perceptron_tagger'); nltk.download('stopwords')"
 script:
   - python -m unittest discover -s source/stockPrediction/test -t source/stockPrediction
   - pylint source/stockPrediction/main
