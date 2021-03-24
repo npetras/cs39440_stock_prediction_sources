@@ -196,6 +196,14 @@ def with_vectorizer_cv(data,
 
 
 def cross_validation(data, labels, vectorizer, classifier):
+    """
+    Performs cross validation on the data and labels, using the vectorizer and classifier provided.
+    :param data: data (features) to be used for prediction
+    :param labels: labels for the data (features)
+    :param vectorizer: The vectorizer to be used to convert the data to a vector
+    :param classifier: The classifier to be used to classify the data, only expect Bayes and
+    LogisticRegression classifiers
+    """
     scoring_metrics = ['accuracy', 'f1']
     pipeline = sklearn.pipeline.Pipeline([('transformer', vectorizer),
                                           ('estimator', classifier)])

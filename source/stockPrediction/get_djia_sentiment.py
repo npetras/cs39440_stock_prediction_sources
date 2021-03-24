@@ -1,5 +1,5 @@
 """
-Runs model on DJIA dataset after sentiment has been extracted from the data.
+Extracts the sentiment from the headlines using VADER. Pickling the results into a file.
 """
 
 from main.feature.engineering import sentiment

@@ -125,5 +125,11 @@ def wordnet_lemmatize_list(text_list):
 
 
 def remove_stopwords(tokenized_text):
+    """
+    Removes the stop words based on the NLTK english stop word list from the tokenized_text
+    provided as input.
+    :param tokenized_text: tokenized text, from which stop words should be removed
+    :return: tokenized list with stop words removed
+    """
     stop_words = stopwords.words('english')
-    return [token for token in tokenized_text if (token.lower() not in stop_words)]
+    return [token for token in tokenized_text if token.lower() not in stop_words]

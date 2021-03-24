@@ -1,3 +1,7 @@
+"""
+Performs price prediction on the DJIA Data's Sentiment, extracted with VADER.
+"""
+
 import pickle
 import constants
 import sklearn.feature_extraction
