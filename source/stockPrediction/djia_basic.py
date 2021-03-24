@@ -34,7 +34,7 @@ if __name__ == '__main__':
     # run.with_vectorizer(train_data=train_data,
     #                     train_labels=train_df['Label'],
     #                     test_data=test_data,
-    #                     modelling=naive_bayes.MultinomialNB(),
+    #                     classifier=naive_bayes.MultinomialNB(),
     #                     test_labels=test_df['Label'])
     #
     # print("Logistic Regression -- Without Extra Preprocessing")
@@ -42,14 +42,14 @@ if __name__ == '__main__':
     #     train_data=train_data,
     #     train_labels=train_df['Label'],
     #     test_data=test_data,
-    #     modelling=linear_model.LogisticRegression(max_iter=ITERATION_NUM),
+    #     classifier=linear_model.LogisticRegression(max_iter=ITERATION_NUM),
     #     test_labels=test_df['Label'])
 
     # print("Multinomial Naive Bayes -- Stemming Only")
     # run.with_vectorizer(train_data=train_data,
     #                     train_labels=train_df['Label'],
     #                     test_data=test_data,
-    #                     modelling=naive_bayes.MultinomialNB(),
+    #                     classifier=naive_bayes.MultinomialNB(),
     #                     test_labels=test_df['Label'],
     #                     stemming=True)
     #
@@ -58,7 +58,7 @@ if __name__ == '__main__':
     #     train_data=train_data,
     #     train_labels=train_df['Label'],
     #     test_data=test_data,
-    #     modelling=linear_model.LogisticRegression(max_iter=ITERATION_NUM),
+    #     classifier=linear_model.LogisticRegression(max_iter=ITERATION_NUM),
     #     test_labels=test_df['Label'],
     #     stop_words=True,
     #     stemming=True,
