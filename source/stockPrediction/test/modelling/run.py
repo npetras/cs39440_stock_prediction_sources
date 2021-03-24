@@ -1,14 +1,14 @@
 """
-Test module for main.classifier.run
+Test module for main.modelling.run
 """
 
 import unittest
-from main.classifier import run
+from main.modelling import run
 
 
 class TestRun(unittest.TestCase):
     """
-    Test class for main.classifier.run
+    Test class for main.modelling.run
     """
 
     def test_with_vectorizer_error(self):

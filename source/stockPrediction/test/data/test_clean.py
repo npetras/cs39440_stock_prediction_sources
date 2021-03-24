@@ -7,6 +7,7 @@ import unittest
 import nltk.corpus.reader.wordnet as wordnet_corpus
 from main.data import clean
 
+GEORGIA_HEADLINE = 'Georgia downs two Russian warplanes as countries move to brink of war'
 GEORGIA_HEADLINE_LC = 'georgia downs two russian warplanes as countries move to brink of war'
 GEORGIA_HEADLINE_STEMMED = 'georgia down two russian warplan as countri move to brink of war'
 GEORGIA_HEADLINE_LEMMATIZED = "georgia down two russian warplane as country move to brink of war"
@@ -174,6 +175,28 @@ class TestClean(unittest.TestCase):
         ]
         resulting_list = clean.wordnet_lemmatize_list(text_list)
         self.assertEqual(expected_list, resulting_list)
+
+    def test_remove_stopwords_lc(self):
+        """
+        Lower case words
+        :return:
+        """
+        tokenized_headline = list(GEORGIA_HEADLINE_LC.split(' '))
+        expected_output = ['georgia', 'downs', 'two', 'russian', 'warplanes', 'countries', 'move',
+                           'brink', 'war']
+        result = clean.remove_stopwords(tokenized_headline)
+        self.assertEqual(result, expected_output)
+
+    def test_remove_stopwords_mix(self):
+        """
+        Mix of Lower and Upper case tokens
+        :return:
+        """
+        tokenized_headline = list(GEORGIA_HEADLINE.split(' '))
+        expected_output = ['Georgia', 'downs', 'two', 'Russian', 'warplanes', 'countries', 'move',
+                           'brink', 'war']
+        result = clean.remove_stopwords(tokenized_headline)
+        self.assertEqual(result, expected_output)
 
 
 if __name__ == '__main__':
