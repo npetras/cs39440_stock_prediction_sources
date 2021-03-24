@@ -38,5 +38,5 @@ All of the packages in test should be a reflection of the same packages in main,
 ## main.data
 Contains all sources related to processing the data, including cleaning, analysis and 
 representation of the data.
-## main.classifier
+## main.modelling
 Contains sources related to running classifiers on the data to predict price movement. 
