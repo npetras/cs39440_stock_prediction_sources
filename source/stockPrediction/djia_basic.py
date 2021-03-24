@@ -1,10 +1,11 @@
 """
 Script that runs models on the DJIA dataset.
-Uses bag of words vector as features.
+Uses bag of words vector as features. No sentiment analysis, only uses the words to perform price
+prediction.
 """
 
 from main.data import load, manipulate
-from main.classifier import run
+from main.modelling import run
 import constants
 
 from sklearn import linear_model, naive_bayes

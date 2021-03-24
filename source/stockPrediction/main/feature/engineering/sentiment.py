@@ -2,8 +2,8 @@
 Used to extract sentiment from headlines
 """
 
-import nltk.sentiment.vader
 import logging
+import nltk.sentiment.vader
 
 MAX_TWEET_LENGTH = 280
 
