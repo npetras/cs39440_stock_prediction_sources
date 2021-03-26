@@ -1,0 +1,11 @@
+﻿Preprocessing Applied,Test Accuracy,Change from None,Diff from Best
+None,0.4947089947089947,0,
+Stopword Removal,0.5,0.05,
+Frequency Removal,0.4523809523809524,,
+Stemming Only,0.5158730158730159,,
+Stemming & Stopwords,0.5079365079365079,,
+Stemming & Frequency Removal,0.4894179894179894,,
+Lemmatisation,0.48677248677248675,,
+Lemmatisation & Stopwords,0.48148148148148145,,
+Lemmatisation & Frequency Removal,0.46296296296296297,,
+,,,

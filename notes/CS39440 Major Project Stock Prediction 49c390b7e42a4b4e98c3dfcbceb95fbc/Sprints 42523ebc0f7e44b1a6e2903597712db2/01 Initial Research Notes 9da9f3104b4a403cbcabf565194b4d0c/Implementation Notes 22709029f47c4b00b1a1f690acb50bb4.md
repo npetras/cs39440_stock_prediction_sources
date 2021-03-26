@@ -32,3 +32,5 @@
     - Barrons
 
 - Add tool to include an investment amount, and prediction of the increase and decrease in real and percentage terms?
+
+- Utilise a dictionary alongside a Machine Learning approach
