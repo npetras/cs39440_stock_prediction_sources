@@ -13,6 +13,9 @@ import pandas as pd
 
 TIME_REGEX = '''\s\d:\d{2}\s[pa].m.\s.*'''
 TESLA_CSV = './tesla_headlines.csv'
+NO_PAGEDOWNS = 20
+
+
 browser = webdriver.Firefox()
 
 browser.get('https://www.barrons.com/quote/stock/tsla')
@@ -20,12 +23,10 @@ time.sleep(1)
 
 scroll_elem = browser.find_element_by_id('barrons-news-infinite')
 
-no_of_pagedowns = 20
 
-while no_of_pagedowns:
+for i in range(0, NO_PAGEDOWNS):
     scroll_elem.send_keys(Keys.PAGE_DOWN)
     time.sleep(0.2)
-    no_of_pagedowns-=1
 
 headlines = browser.find_elements_by_xpath('/html/body/section/div/div[4]/div[1]/div[1]/div/div[4]/div[2]/div/div/div/div[2]/div/div[1]/div/div/ul/li/a')
 dates = browser.find_elements_by_xpath('/html/body/section/div/div[4]/div[1]/div[1]/div/div[4]/div[2]/div/div/div/div[2]/div/div[1]/div/div/ul/li/span[@class="date"]')
