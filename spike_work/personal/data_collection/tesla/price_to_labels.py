@@ -20,7 +20,7 @@ for row in range(0, len(price_df.index)):
         labels_dict[date] = 1
         # print(1)
     else:
-        labels_dict[date] = 00
+        labels_dict[date] = 0
         # print(0)
 
 labels_df = pd.DataFrame.from_dict(labels_dict, orient='index', columns=['Label'])
