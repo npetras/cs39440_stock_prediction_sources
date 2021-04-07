@@ -13,7 +13,7 @@ import pandas as pd
 
 TIME_REGEX = '''\s\d:\d{2}\s[pa].m.\s.*'''
 TESLA_CSV = './tesla_headlines.csv'
-NO_PAGEDOWNS = 20
+NO_PAGEDOWNS = 400
 
 
 browser = webdriver.Firefox()
