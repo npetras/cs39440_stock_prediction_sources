@@ -1,0 +1,11 @@
+# Technical Work
+
+[Design](Technical%20Work%20e2ec0581767c4504bfc282a22a39a7fa/Design%2054808db9df4d424b9bd1552e1c341d79.md)
+
+[Natural Language Processing](Technical%20Work%20e2ec0581767c4504bfc282a22a39a7fa/Natural%20Language%20Processing%20bcf86539638c493e8257f1c0558230a9.md)
+
+[Extreme Programming Practices](Technical%20Work%20e2ec0581767c4504bfc282a22a39a7fa/Extreme%20Programming%20Practices%2051ff756c970840bb85a540dfb2d93eed.md)
+
+[Sprint Overviews](Technical%20Work%20e2ec0581767c4504bfc282a22a39a7fa/Sprint%20Overviews%20ca9551faa3c948108c808e7c719a4de2.md)
+
+[Structure](Technical%20Work%20e2ec0581767c4504bfc282a22a39a7fa/Structure%2093d606f9f6b94abeb5bc040fc7a61df3.md)

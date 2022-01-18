@@ -31,6 +31,7 @@
 
 - Use development practices from XP to guide my work: TDD, refactoring, continuous integration, simple design, coding standards, system metaphor
 - Other practices: semantic versioning, conventional commits
+- Using WIP limits from Kanban, to ensure I focus on one to two items at a time, reduicng task switching which decreases productivity
 
 # Problem Approach
 
